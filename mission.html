@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission — AeroBMSCE</title>
 <meta name="description" content="AeroBMSCE's mission: discipline, cadence and people. Indigenous airframes engineered, not sourced.">
+<link rel="canonical" href="https://aerobmsce.vercel.app/mission.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AeroBMSCE">
+<meta property="og:title" content="Mission — AeroBMSCE">
+<meta property="og:description" content="AeroBMSCE's mission: discipline, cadence and people. Indigenous airframes engineered, not sourced.">
+<meta property="og:url" content="https://aerobmsce.vercel.app/mission.html">
+<meta property="og:image" content="https://aerobmsce.vercel.app/assets/media/usa-03-in-flight.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mission — AeroBMSCE">
+<meta name="twitter:description" content="AeroBMSCE's mission: discipline, cadence and people. Indigenous airframes engineered, not sourced.">
+<meta name="twitter:image" content="https://aerobmsce.vercel.app/assets/media/usa-03-in-flight.webp">
+<meta name="theme-color" content="#0A0807">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,6 +24,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- ambient canvas starfield -->
 <canvas id="starfield"></canvas>
@@ -25,7 +39,7 @@
     </a>
 
     <nav class="nav-links" id="navLinks">
-      <a href="mission.html" data-idx="01" class="active">Mission</a>
+      <a href="mission.html" data-idx="01" class="active" aria-current="page">Mission</a>
       <a href="research.html" data-idx="02">R&amp;D</a>
       <a href="team.html" data-idx="03">Squad</a>
       <a href="gallery.html" data-idx="04">Gallery</a>
@@ -35,7 +49,7 @@
     <div class="nav-right">
       <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
       <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileOverlay">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -43,9 +57,9 @@
 </header>
 
 <!-- mobile overlay -->
-<div class="mobile-overlay" id="mobileOverlay">
+<div class="mobile-overlay" id="mobileOverlay" role="dialog" aria-modal="true" aria-label="Site menu">
   <nav>
-    <a href="mission.html" class="active">01 · Mission</a>
+    <a href="mission.html" class="active" aria-current="page">01 · Mission</a>
     <a href="research.html">02 · R&amp;D</a>
     <a href="team.html">03 · Squad</a>
     <a href="gallery.html">04 · Gallery</a>

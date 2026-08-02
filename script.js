@@ -64,20 +64,38 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- Reading progress ---------- */
+  const progressBar = document.getElementById('scrollProgress');
+  if (progressBar){
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      progressBar.style.width = Math.min(pct, 100) + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  }
+
   /* ---------- Mobile menu ---------- */
   const navToggle = document.getElementById('navToggle');
   const mobileOverlay = document.getElementById('mobileOverlay');
+
+  function setMenu(open){
+    navToggle.classList.toggle('open', open);
+    mobileOverlay.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) mobileOverlay.querySelector('a')?.focus();
+    else navToggle.focus();
+  }
+
   navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('open');
-    mobileOverlay.classList.toggle('open');
-    document.body.style.overflow = mobileOverlay.classList.contains('open') ? 'hidden' : '';
+    setMenu(!mobileOverlay.classList.contains('open'));
   });
   mobileOverlay.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navToggle.classList.remove('open');
-      mobileOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+    a.addEventListener('click', () => setMenu(false));
   });
 
   /* ---------- Scroll reveal ---------- */
@@ -283,6 +301,89 @@
         }
       }
     });
+  });
+
+  /* ---------- Gallery lightbox ---------- */
+  const tiles = Array.from(document.querySelectorAll('.media-tile'));
+  if (tiles.length){
+    const box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Photo viewer');
+    box.innerHTML =
+      '<button class="lightbox-close" aria-label="Close viewer">&times;</button>' +
+      '<button class="lightbox-nav lightbox-prev" aria-label="Previous photo">&#8249;</button>' +
+      '<button class="lightbox-nav lightbox-next" aria-label="Next photo">&#8250;</button>' +
+      '<figure class="lightbox-figure">' +
+        '<img alt="">' +
+        '<figcaption class="lightbox-caption">' +
+          '<span class="lb-id"></span><span class="lb-title"></span><span class="lb-meta"></span>' +
+        '</figcaption>' +
+      '</figure>' +
+      '<span class="lightbox-count"></span>';
+    document.body.appendChild(box);
+
+    const lbImg   = box.querySelector('img');
+    const lbId    = box.querySelector('.lb-id');
+    const lbTitle = box.querySelector('.lb-title');
+    const lbMeta  = box.querySelector('.lb-meta');
+    const lbCount = box.querySelector('.lightbox-count');
+    let index = 0;
+    let lastFocused = null;
+
+    function show(i){
+      index = (i + tiles.length) % tiles.length;
+      const tile = tiles[index];
+      const img = tile.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbId.textContent    = tile.querySelector('.media-cap-id')?.textContent || '';
+      lbTitle.textContent = tile.querySelector('.media-cap-title')?.textContent || '';
+      lbMeta.textContent  = tile.querySelector('.media-cap-meta')?.textContent || '';
+      lbCount.textContent = (index + 1) + ' / ' + tiles.length;
+    }
+
+    function open(i){
+      lastFocused = document.activeElement;
+      show(i);
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      box.querySelector('.lightbox-close').focus();
+    }
+
+    function close(){
+      box.classList.remove('open');
+      document.body.style.overflow = '';
+      lastFocused?.focus();
+    }
+
+    tiles.forEach((tile, i) => {
+      tile.setAttribute('tabindex', '0');
+      tile.setAttribute('role', 'button');
+      tile.setAttribute('aria-label', 'View photo: ' + (tile.querySelector('.media-cap-title')?.textContent || ''));
+      tile.addEventListener('click', () => open(i));
+      tile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(i); }
+      });
+    });
+
+    box.querySelector('.lightbox-close').addEventListener('click', close);
+    box.querySelector('.lightbox-prev').addEventListener('click', () => show(index - 1));
+    box.querySelector('.lightbox-next').addEventListener('click', () => show(index + 1));
+    box.addEventListener('click', (e) => { if (e.target === box) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!box.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+  }
+
+  /* ---------- Escape closes the mobile menu ---------- */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) setMenu(false);
   });
 
   /* ---------- Smooth scroll for in-page anchors ---------- */
