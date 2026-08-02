@@ -183,15 +183,28 @@
     }
     requestAnimationFrame(tick);
 
-    // cursor steers spin speed/direction — release drifts back to a slow idle turn
-    const hero = document.getElementById('hero');
-    if (hero){
-      hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
+    // cursor steers spin speed/direction — leaving drifts back to a slow idle turn
+    const steerTarget = document.querySelector('.hero-model-stage') ||
+                        document.getElementById('hero');
+    if (steerTarget){
+      steerTarget.addEventListener('mousemove', (e) => {
+        const rect = steerTarget.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
-        rotationSpeed = BASE_SPEED + px * 0.9;
+        rotationSpeed = BASE_SPEED + px * 1.6;
       });
-      hero.addEventListener('mouseleave', () => {
+      steerTarget.addEventListener('mouseleave', () => {
+        rotationSpeed = BASE_SPEED;
+      });
+
+      // touch: drag across the model to scrub through frames
+      steerTarget.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        if (!t) return;
+        const rect = steerTarget.getBoundingClientRect();
+        const px = (t.clientX - rect.left) / rect.width - 0.5;
+        rotationSpeed = BASE_SPEED + px * 1.6;
+      }, { passive: true });
+      steerTarget.addEventListener('touchend', () => {
         rotationSpeed = BASE_SPEED;
       });
     }
@@ -208,6 +221,69 @@
       heroGlow.style.transform = `translate(calc(-50% + ${px * 40}px), ${py * 40}px)`;
     });
   }
+
+  /* ---------- Forms ----------
+     Set FORM_ENDPOINT to a Formspree (or similar) URL to receive submissions
+     as email. Leave it empty and the form falls back to opening the visitor's
+     mail client with everything already filled in, so it never dead-ends. */
+  const FORM_ENDPOINT = '';
+  const CONTACT_EMAIL = 'aerobmsce@bmsce.ac.in';
+
+  document.querySelectorAll('form[data-form]').forEach((form) => {
+    const status = form.querySelector('.form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    function setStatus(msg, state){
+      if (!status) return;
+      status.textContent = msg;
+      status.className = 'form-status show' + (state ? ' is-' + state : '');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const subject = form.dataset.subject || 'AeroBMSCE enquiry';
+
+      if (!FORM_ENDPOINT){
+        const body = Array.from(data.entries())
+          .map(([k, v]) => k + ': ' + v)
+          .join('\n');
+        window.location.href = 'mailto:' + CONTACT_EMAIL +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+        setStatus('Opening your email app — send the draft to reach us.', 'ok');
+        return;
+      }
+
+      const originalLabel = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn){
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+      }
+      setStatus('Transmitting…');
+
+      try {
+        data.append('_subject', subject);
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' }
+        });
+        if (!res.ok) throw new Error('Bad response ' + res.status);
+        form.reset();
+        setStatus("Transmission received. We'll respond within 48 hours.", 'ok');
+      } catch (err) {
+        setStatus('That didn’t send. Email us directly at ' + CONTACT_EMAIL + '.', 'error');
+      } finally {
+        if (submitBtn){
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+        }
+      }
+    });
+  });
 
   /* ---------- Smooth scroll for in-page anchors ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(a => {

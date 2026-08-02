@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,33 +21,15 @@
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <span class="brand-mark">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
-          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
-          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
-          <defs>
-            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F4C430"/>
-              <stop offset="1" stop-color="#E0A542"/>
-            </linearGradient>
-            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F5EBDA"/>
-              <stop offset="1" stop-color="#BC9C79"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </span>
-      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+      <img class="brand-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
     </a>
 
     <nav class="nav-links" id="navLinks">
       <a href="mission.html" data-idx="01" class="active">Mission</a>
-      <a href="flight-log.html" data-idx="02">Flight Log</a>
-      <a href="research.html" data-idx="03">R&amp;D</a>
-      <a href="team.html" data-idx="04">Squad</a>
-      <a href="gallery.html" data-idx="05">Gallery</a>
-      <a href="contact.html" data-idx="06">Partner</a>
+      <a href="research.html" data-idx="02">R&amp;D</a>
+      <a href="team.html" data-idx="03">Squad</a>
+      <a href="gallery.html" data-idx="04">Gallery</a>
+      <a href="contact.html" data-idx="05">Partner</a>
     </nav>
 
     <div class="nav-right">
@@ -63,11 +46,10 @@
 <div class="mobile-overlay" id="mobileOverlay">
   <nav>
     <a href="mission.html" class="active">01 · Mission</a>
-    <a href="flight-log.html">02 · Flight Log</a>
-    <a href="research.html">03 · R&amp;D</a>
-    <a href="team.html">04 · Squad</a>
-    <a href="gallery.html">05 · Gallery</a>
-    <a href="contact.html">06 · Partner</a>
+    <a href="research.html">02 · R&amp;D</a>
+    <a href="team.html">03 · Squad</a>
+    <a href="gallery.html">04 · Gallery</a>
+    <a href="contact.html">05 · Partner</a>
   </nav>
 </div>
 
@@ -109,10 +91,10 @@
 
   <div class="cta-band reveal">
     <div>
-      <h3>See the results this discipline produces.</h3>
-      <p>Sixteen years of podiums, from campus exhibitions to the SAE flight line in Texas.</p>
+      <h3>See what this discipline produces.</h3>
+      <p>Indigenous flight controllers, custom ESCs, and GPS-denied navigation — built in-house.</p>
     </div>
-    <a href="flight-log.html" class="btn btn-primary btn-lg">Flight Log <span class="btn-arrow">→</span></a>
+    <a href="research.html" class="btn btn-primary btn-lg">R&amp;D <span class="btn-arrow">→</span></a>
   </div>
 </section>
 
@@ -122,20 +104,8 @@
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <span class="brand-mark">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
-          <defs>
-            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </span>
-      <div>
-        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
-        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
-      </div>
+      <img class="footer-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218" loading="lazy">
+      <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
     </div>
     <a href="contact.html" class="btn btn-outline">Become a partner →</a>
   </div>
@@ -145,10 +115,11 @@
       <h4>Explore</h4>
       <a href="index.html">Home</a>
       <a href="mission.html">Mission</a>
-      <a href="flight-log.html">Flight Log</a>
       <a href="research.html">R&amp;D</a>
       <a href="team.html">Squad</a>
       <a href="gallery.html">Gallery</a>
+      <a href="media.html">Media</a>
+      <a href="join.html">Join</a>
       <a href="contact.html">Partner</a>
     </div>
     <div>
@@ -164,6 +135,7 @@
       <span>Bull Temple Road, Basavanagudi,</span>
       <span>Bengaluru, Karnataka 560019</span>
       <span class="mono">12.9416°N · 77.5660°E</span>
+      <img class="footer-inst" src="assets/logos/bmsce.svg" alt="BMS College of Engineering" loading="lazy" width="300" height="300">
     </div>
   </div>
 

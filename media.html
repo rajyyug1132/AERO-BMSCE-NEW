@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media — AeroBMSCE</title>
+<meta name="description" content="Flight-line photography, CAD renders and build documentation from the AeroBMSCE workshop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01">Mission</a>
+      <a href="research.html" data-idx="02">R&amp;D</a>
+      <a href="team.html" data-idx="03">Squad</a>
+      <a href="gallery.html" data-idx="04" class="active">Gallery</a>
+      <a href="contact.html" data-idx="05">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html">01 · Mission</a>
+    <a href="research.html">02 · R&amp;D</a>
+    <a href="team.html">03 · Squad</a>
+    <a href="gallery.html" class="active">04 · Gallery</a>
+    <a href="contact.html">05 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">Media</span>
+    <h1 class="section-title">The build, <span class="grad-text">frame by frame.</span></h1>
+    <p class="section-desc">CAD, cut balsa, wiring looms and the flight line. Documentation from the workshop at Propel Lab-3.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="media">
+
+  <div class="breadcrumb reveal">
+    <a href="gallery.html">Gallery</a> <span>/</span> <span class="current">Media</span>
+  </div>
+
+  <!-- ---------- SAE Aero Design West, USA ---------- -->
+  <div class="album-head reveal">
+    <div>
+      <span class="album-tag">Album 01</span>
+      <h2 class="album-title">SAE Aero Design West</h2>
+    </div>
+    <span class="album-meta">Texas, USA · Team 321 · Blue Impulse</span>
+  </div>
+
+  <div class="media-grid">
+    <figure class="media-tile media-tile--wide reveal">
+      <img src="assets/media/usa-03-in-flight.webp" alt="The blue aircraft airborne low over the competition field, treeline behind" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US01</span>
+        <span class="media-cap-title">Wheels up over the field</span>
+        <span class="media-cap-meta">Flight round · Thunderbird Field</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-01-wing-prep.webp" alt="Two students working on the blue wing panel under the pit tent" loading="lazy" width="1000" height="1500">
+      <figcaption>
+        <span class="media-cap-id">US02</span>
+        <span class="media-cap-title">Wing prep in the pits</span>
+        <span class="media-cap-meta">Airframe</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-02-wing-assembly.webp" alt="Students fitting servo linkages into the blue wing at the pit table" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US03</span>
+        <span class="media-cap-title">Linkages and final fit</span>
+        <span class="media-cap-meta">Airframe · Systems</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-05-golden-ticket.webp" alt="Golden Ticket tech inspection pass taped to the blue wing beside the Indian flag decal" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US04</span>
+        <span class="media-cap-title">Golden ticket — cleared to fly</span>
+        <span class="media-cap-meta">Technical inspection</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-04-transmitter.webp" alt="Close-up of hands on the radio transmitter during a flight round" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US05</span>
+        <span class="media-cap-title">On the sticks</span>
+        <span class="media-cap-meta">Flight operations</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-06-pre-flight.webp" alt="The team gathered around the aircraft on the grass for pre-flight checks" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US06</span>
+        <span class="media-cap-title">Pre-flight huddle</span>
+        <span class="media-cap-meta">Flight line</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/usa-07-marshal.webp" alt="Team members briefing a flight marshal with the payload bay open" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US07</span>
+        <span class="media-cap-title">Briefing the marshal</span>
+        <span class="media-cap-meta">Payload round</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile media-tile--wide reveal">
+      <img src="assets/media/usa-08-on-the-line.webp" alt="Side view of aircraft 321 staged on the grass at the flight line" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">US08</span>
+        <span class="media-cap-title">321, staged and waiting</span>
+        <span class="media-cap-meta">Flight line</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile media-tile--wide reveal">
+      <img src="assets/media/usa-09-team.webp" alt="The AeroBMSCE squad at the SAE International backdrop, Thunderbird Field" loading="lazy" width="801" height="546">
+      <figcaption>
+        <span class="media-cap-id">US09</span>
+        <span class="media-cap-title">The squad, Thunderbird Field</span>
+        <span class="media-cap-meta">SAE International · Team photo</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ---------- SAE Drone Development Challenge ---------- -->
+  <div class="album-head reveal">
+    <div>
+      <span class="album-tag">Album 02</span>
+      <h2 class="album-title">Drone Development Challenge</h2>
+    </div>
+    <span class="album-meta">Tamil Nadu · February 2026 · 1st place</span>
+  </div>
+
+  <div class="media-grid">
+    <figure class="media-tile media-tile--wide reveal">
+      <img src="assets/media/ddc-05-aircraft-portrait.webp" alt="A team member holding the completed red DDC aircraft in front of the competition banner" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">TN01</span>
+        <span class="media-cap-title">The finished article</span>
+        <span class="media-cap-meta">DDC 2026 · Competition banner</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-04-payload-wiring.webp" alt="Two students routing wiring through the red fuselage in the assembly hall" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">TN02</span>
+        <span class="media-cap-title">Wiring the fuselage</span>
+        <span class="media-cap-meta">Systems · Assembly hall</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-03-airframe-detail.webp" alt="Close detail of the red airframe showing exposed ribs and control linkages" loading="lazy" width="1000" height="1500">
+      <figcaption>
+        <span class="media-cap-id">TN03</span>
+        <span class="media-cap-title">Ribs, spars, linkages</span>
+        <span class="media-cap-meta">Airframe detail</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-02-tech-inspection.webp" alt="A team member presenting the wing panel at the technical inspection desk" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">TN04</span>
+        <span class="media-cap-title">At the inspection desk</span>
+        <span class="media-cap-meta">Technical inspection</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-01-final-assembly.webp" alt="Three team members making final adjustments to the aircraft at the flight-line table" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">TN05</span>
+        <span class="media-cap-title">Final adjustments</span>
+        <span class="media-cap-meta">Flight line</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-08-launch-brief.webp" alt="A team member holding the aircraft overhead for a launch check under the canopy" loading="lazy" width="1500" height="845">
+      <figcaption>
+        <span class="media-cap-id">TN06</span>
+        <span class="media-cap-title">Launch check</span>
+        <span class="media-cap-meta">Flight operations</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile reveal">
+      <img src="assets/media/ddc-06-judges-walkaround.webp" alt="Judges inspecting the red aircraft resting on the grass" loading="lazy" width="1500" height="1000">
+      <figcaption>
+        <span class="media-cap-id">TN07</span>
+        <span class="media-cap-title">Judges' walkaround</span>
+        <span class="media-cap-meta">Design evaluation</span>
+      </figcaption>
+    </figure>
+
+    <figure class="media-tile media-tile--wide reveal">
+      <img src="assets/media/ddc-07-team.webp" alt="The team assembled with the red aircraft under the competition canopy" loading="lazy" width="1500" height="845">
+      <figcaption>
+        <span class="media-cap-id">TN08</span>
+        <span class="media-cap-title">Squad and airframe</span>
+        <span class="media-cap-meta">DDC 2026 · Team photo</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>Want to be on the other side of the lens?</h3>
+      <p>Divisions, roles, and how applications work.</p>
+    </div>
+    <a href="join.html" class="btn btn-primary btn-lg">Join the Fleet <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218" loading="lazy">
+      <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="media.html">Media</a>
+      <a href="join.html">Join</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+      <img class="footer-inst" src="assets/logos/bmsce.svg" alt="BMS College of Engineering" loading="lazy" width="300" height="300">
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

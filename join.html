@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the Fleet — AeroBMSCE</title>
+<meta name="description" content="Divisions, roles and how to apply to AeroBMSCE, the aerospace and UAV club of BMS College of Engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01">Mission</a>
+      <a href="research.html" data-idx="02">R&amp;D</a>
+      <a href="team.html" data-idx="03">Squad</a>
+      <a href="gallery.html" data-idx="04" class="active">Gallery</a>
+      <a href="contact.html" data-idx="05">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html">01 · Mission</a>
+    <a href="research.html">02 · R&amp;D</a>
+    <a href="team.html">03 · Squad</a>
+    <a href="gallery.html" class="active">04 · Gallery</a>
+    <a href="contact.html">05 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">Join the Fleet</span>
+    <h1 class="section-title">No experience.<br><span class="grad-text">Just show up.</span></h1>
+    <p class="section-desc">We take first and second years with no aeromodelling background every season. What we look for is people who finish what they start.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="join">
+
+  <div class="breadcrumb reveal">
+    <a href="gallery.html">Gallery</a> <span>/</span> <span class="current">Join</span>
+  </div>
+
+  <div class="section-head reveal">
+    <span class="section-tag">Divisions</span>
+    <h2 class="section-title">Where you'd <span class="grad-text">land.</span></h2>
+    <p class="section-desc">Pick a preference when you apply. You'll rotate through the workshop before anything is fixed.</p>
+  </div>
+
+  <div class="rnd-grid">
+    <div class="rnd-card reveal">
+      <span class="rnd-id">D01</span>
+      <h3>Airframe</h3>
+      <p>Rib lofting, spar layup, balsa and carbon fabrication, covering film. You'll be on the cutting mat and the jig table.</p>
+      <span class="role-tags"><span class="chip chip--sm">SolidWorks</span><span class="chip chip--sm">Composites</span><span class="chip chip--sm">Fabrication</span></span>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">D02</span>
+      <h3>Avionics &amp; Systems</h3>
+      <p>Flight controller firmware, sensor fusion, telemetry links, wiring looms and pre-flight checks on the bench.</p>
+      <span class="role-tags"><span class="chip chip--sm">Embedded C</span><span class="chip chip--sm">Soldering</span><span class="chip chip--sm">PX4 / ArduPilot</span></span>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">D03</span>
+      <h3>Aerodynamics</h3>
+      <p>Airfoil selection, CFD runs, stability and control sizing, and the design reports that competitions score you on.</p>
+      <span class="role-tags"><span class="chip chip--sm">XFLR5</span><span class="chip chip--sm">CFD</span><span class="chip chip--sm">Technical writing</span></span>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">D04</span>
+      <h3>Operations</h3>
+      <p>Sponsorship, budgets, travel to competitions, media and the documentation that keeps a season from falling apart.</p>
+      <span class="role-tags"><span class="chip chip--sm">Outreach</span><span class="chip chip--sm">Design</span><span class="chip chip--sm">Logistics</span></span>
+    </div>
+  </div>
+
+  <div class="section-head reveal" style="margin-top:96px">
+    <span class="section-tag">Process</span>
+    <h2 class="section-title">Four steps to the <span class="grad-text">flight line.</span></h2>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <span class="process-num">01</span>
+      <h3>Apply</h3>
+      <p>Send the form below. Tell us what you've built before — a robot, a website, a birdhouse. Anything counts.</p>
+    </div>
+    <div class="process-step reveal">
+      <span class="process-num">02</span>
+      <h3>Workshop</h3>
+      <p>A weekend at Propel Lab-3 building a chuck glider. This is where you find out whether you like it.</p>
+    </div>
+    <div class="process-step reveal">
+      <span class="process-num">03</span>
+      <h3>Interview</h3>
+      <p>Fifteen minutes with the core team. Not a viva — we're checking how you think, not what you've memorised.</p>
+    </div>
+    <div class="process-step reveal">
+      <span class="process-num">04</span>
+      <h3>Induction</h3>
+      <p>You're assigned a division and a mentor, and you start on a live subsystem within the first month.</p>
+    </div>
+  </div>
+
+  <div class="join-form-wrap">
+    <div class="join-form-left reveal">
+      <span class="section-tag">Application</span>
+      <h2 class="section-title">Send it <span class="grad-text">through.</span></h2>
+      <p class="section-desc">Recruitment opens at the start of each odd semester. Applications outside that window are held for the next cycle.</p>
+
+      <div class="contact-info">
+        <div class="contact-row">
+          <span class="contact-label">Questions</span>
+          <a href="mailto:aerobmsce@bmsce.ac.in" class="contact-value link">aerobmsce@bmsce.ac.in</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Workshop</span>
+          <span class="contact-value">Propel Lab-3, BMS College of Engineering</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" data-form="join" data-subject="AeroBMSCE application">
+      <div class="form-field">
+        <label for="j-name">Name</label>
+        <input id="j-name" name="Name" type="text" required placeholder="Your full name">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="j-usn">USN</label>
+          <input id="j-usn" name="USN" type="text" placeholder="1BM__XX000">
+        </div>
+        <div class="form-field">
+          <label for="j-year">Year</label>
+          <select id="j-year" name="Year">
+            <option>1st year</option>
+            <option>2nd year</option>
+            <option>3rd year</option>
+            <option>4th year</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="j-branch">Branch</label>
+        <input id="j-branch" name="Branch" type="text" placeholder="Mechanical, ECE, CSE…">
+      </div>
+      <div class="form-field">
+        <label for="j-email">Email</label>
+        <input id="j-email" name="Email" type="email" required placeholder="you@bmsce.ac.in">
+      </div>
+      <div class="form-field">
+        <label for="j-division">Division preference</label>
+        <select id="j-division" name="Division">
+          <option>Airframe</option>
+          <option>Avionics &amp; Systems</option>
+          <option>Aerodynamics</option>
+          <option>Operations</option>
+          <option>No preference</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="j-msg">What have you built?</label>
+        <textarea id="j-msg" name="Built" rows="4" required placeholder="A project, a hack, a repair — anything you saw through to the end"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Send Application <span class="btn-arrow">→</span></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>Want to see what a season looks like first?</h3>
+      <p>Pit tents, tech inspection and the flight line, from Tamil Nadu to Texas.</p>
+    </div>
+    <a href="media.html" class="btn btn-primary btn-lg">Media <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218" loading="lazy">
+      <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="media.html">Media</a>
+      <a href="join.html">Join</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+      <img class="footer-inst" src="assets/logos/bmsce.svg" alt="BMS College of Engineering" loading="lazy" width="300" height="300">
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

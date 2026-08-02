@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,33 +21,15 @@
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <span class="brand-mark">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
-          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
-          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
-          <defs>
-            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F4C430"/>
-              <stop offset="1" stop-color="#E0A542"/>
-            </linearGradient>
-            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F5EBDA"/>
-              <stop offset="1" stop-color="#BC9C79"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </span>
-      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+      <img class="brand-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
     </a>
 
     <nav class="nav-links" id="navLinks">
       <a href="mission.html" data-idx="01">Mission</a>
-      <a href="flight-log.html" data-idx="02">Flight Log</a>
-      <a href="research.html" data-idx="03">R&amp;D</a>
-      <a href="team.html" data-idx="04">Squad</a>
-      <a href="gallery.html" data-idx="05">Gallery</a>
-      <a href="contact.html" data-idx="06">Partner</a>
+      <a href="research.html" data-idx="02">R&amp;D</a>
+      <a href="team.html" data-idx="03">Squad</a>
+      <a href="gallery.html" data-idx="04">Gallery</a>
+      <a href="contact.html" data-idx="05">Partner</a>
     </nav>
 
     <div class="nav-right">
@@ -63,11 +46,10 @@
 <div class="mobile-overlay" id="mobileOverlay">
   <nav>
     <a href="mission.html">01 · Mission</a>
-    <a href="flight-log.html">02 · Flight Log</a>
-    <a href="research.html">03 · R&amp;D</a>
-    <a href="team.html">04 · Squad</a>
-    <a href="gallery.html">05 · Gallery</a>
-    <a href="contact.html">06 · Partner</a>
+    <a href="research.html">02 · R&amp;D</a>
+    <a href="team.html">03 · Squad</a>
+    <a href="gallery.html">04 · Gallery</a>
+    <a href="contact.html">05 · Partner</a>
   </nav>
 </div>
 
@@ -78,31 +60,36 @@
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
 
-  <div class="hero-model-wrap" aria-hidden="true">
-    <div class="hero-model" id="heroModel">
-      <img id="planeFrame" src="assets/plane/frame_00.webp" alt="" draggable="false" width="640" height="264">
+  <div class="hero-split">
+    <div class="hero-content">
+      <div class="telemetry-bar reveal">
+        <span class="telemetry-item">12.9416°N · 77.5660°E — BENGALURU</span>
+        <span class="dot-sep">●</span>
+        <span class="telemetry-item"><span class="pulse-dot"></span> SYSTEMS NOMINAL · EST 2010</span>
+      </div>
+      <p class="eyebrow reveal">Aeronautical Society · BMS College of Engineering</p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span class="reveal-word">Above</span> <span class="reveal-word">gravity.</span></span>
+        <span class="reveal-line"><span class="reveal-word grad-text">Beyond</span> <span class="reveal-word grad-text">limits.</span></span>
+      </h1>
+      <p class="hero-sub reveal">
+        We design, build and fly UAVs at the edge of student aerospace — most recently on the
+        international flight line at the SAE competition in Dallas, Texas.
+      </p>
+      <div class="hero-ctas reveal">
+        <a href="contact.html" class="btn btn-primary btn-lg">Partner With Us <span class="btn-arrow">→</span></a>
+        <a href="mission.html" class="btn btn-outline btn-lg">Our Mission</a>
+      </div>
     </div>
-  </div>
 
-  <div class="telemetry-bar reveal">
-    <span class="telemetry-item">12.9416°N · 77.5660°E — BENGALURU</span>
-    <span class="dot-sep">●</span>
-    <span class="telemetry-item"><span class="pulse-dot"></span> SYSTEMS NOMINAL · EST 2010</span>
-  </div>
-
-  <div class="hero-content">
-    <p class="eyebrow reveal">Aeronautical Society · BMS College of Engineering</p>
-    <h1 class="hero-title">
-      <span class="reveal-line"><span class="reveal-word">Above</span> <span class="reveal-word">gravity.</span></span>
-      <span class="reveal-line"><span class="reveal-word grad-text">Beyond</span> <span class="reveal-word grad-text">limits.</span></span>
-    </h1>
-    <p class="hero-sub reveal">
-      We design, build and fly UAVs at the edge of student aerospace — most recently on the
-      international flight line at the SAE competition in Dallas, Texas.
-    </p>
-    <div class="hero-ctas reveal">
-      <a href="contact.html" class="btn btn-primary btn-lg">Partner With Us <span class="btn-arrow">→</span></a>
-      <a href="mission.html" class="btn btn-outline btn-lg">Our Mission</a>
+    <div class="hero-model-wrap">
+      <div class="hero-model-stage">
+        <span class="hero-model-ring" aria-hidden="true"></span>
+        <div class="hero-model" id="heroModel">
+          <img id="planeFrame" src="assets/plane/frame_00.webp" alt="Rotating CAD render of the AeroBMSCE competition airframe" draggable="false" width="640" height="264">
+        </div>
+        <span class="hero-model-hint">Drag your cursor to steer the spin</span>
+      </div>
     </div>
   </div>
 
@@ -166,12 +153,164 @@
   </div>
 </section>
 
+<!-- ============ FLIGHT LOG PREVIEW ============ -->
+<section class="section" id="flightlog">
+  <div class="section-head reveal">
+    <span class="section-tag">01 — Flight Log</span>
+    <h2 class="section-title">A podium <span class="grad-text">habit.</span></h2>
+    <p class="section-desc">Sixteen years of results — campus exhibitions, national circuits, and the SAE international flight line.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>SAE Aerothon</strong> — 2nd place <span class="tag">₹1.25L prize</span></li>
+          <li><strong>Drone Development Challenge</strong> — 1st, Best Technical Presentation <span class="tag">₹10k</span></li>
+          <li><strong>ADDC</strong> — 1st, Best Innovation <span class="tag">₹5k</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>NITK</strong> — 2nd place</li>
+          <li><strong>GAT</strong> — 1st place</li>
+          <li><strong>SAE Aero Design West</strong> — 12th globally</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2022</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>Aerothon</strong> — 3rd place <span class="tag">₹50k</span></li>
+          <li><strong>AI-VTOL (IIT Bombay)</strong> — 4th nationally</li>
+          <li><strong>SAE Aero Design West</strong> — 9th &amp; 11th globally</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ R&D PREVIEW ============ -->
+<section class="section" id="rnd">
+  <div class="section-head reveal">
+    <span class="section-tag">02 — Research &amp; Development</span>
+    <h2 class="section-title">Systems integration &amp;<br><span class="grad-text">applied research.</span></h2>
+    <p class="section-desc">Indigenous airframes, integrated flight systems and autonomy — engineered in-house, not off-the-shelf.</p>
+  </div>
+
+  <div class="rnd-grid">
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R01</span>
+      <h3>Indigenous Flight Controller</h3>
+      <p>In-house autopilot hardware + firmware — sensor fusion, stabilization, and mission logic built from the ground up.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R02</span>
+      <h3>ESC Development</h3>
+      <p>Custom electronic speed controllers tuned for our airframes and thrust profiles.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R03</span>
+      <h3>GPS-Denied Navigation</h3>
+      <p>Vision- and inertial-based positioning for environments where GPS is jammed or unavailable.</p>
+    </div>
+  </div>
+
+  <div class="section-more reveal">
+    <a href="research.html" class="btn btn-outline">All six research tracks <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ============ SQUAD PREVIEW ============ -->
+<section class="section" id="team">
+  <div class="section-head reveal">
+    <span class="section-tag">Personnel · 10 active</span>
+    <h2 class="section-title">The <span class="grad-text">Squad.</span></h2>
+    <p class="section-desc">Four divisions, one flight line — the students who design, build and fly every airframe.</p>
+  </div>
+
+  <div class="team-block reveal">
+    <div class="team-block-head">
+      <span class="team-block-idx">01</span>
+      <h3>Core Command</h3>
+      <span class="team-count">3 members</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><span class="avatar">A</span><span class="t-name">A. Rao</span><span class="t-role">Captain</span></div>
+      <div class="team-card"><span class="avatar">P</span><span class="t-name">P. Nair</span><span class="t-role">Vice Captain</span></div>
+      <div class="team-card"><span class="avatar">K</span><span class="t-name">K. Mehta</span><span class="t-role">Chief Engineer</span></div>
+    </div>
+  </div>
+
+  <div class="division-strip reveal">
+    <a href="team.html" class="division-pill"><span class="division-idx">02</span> Systems Integration <span class="division-count">3</span></a>
+    <a href="team.html" class="division-pill"><span class="division-idx">03</span> Airframe <span class="division-count">3</span></a>
+    <a href="team.html" class="division-pill"><span class="division-idx">04</span> Flying Phantoms <span class="division-count">1</span></a>
+  </div>
+
+  <div class="section-more reveal">
+    <a href="team.html" class="btn btn-outline">Meet every division <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ============ SPONSOR MARQUEE ============ -->
+<section class="sponsor-band" id="sponsors">
+  <div class="sponsor-band-head reveal">
+    <span class="section-tag">Backed by</span>
+    <h2 class="section-title">Who keeps us <span class="grad-text">airborne.</span></h2>
+  </div>
+
+  <div class="marquee" aria-label="Our sponsors">
+    <div class="marquee-track">
+      <div class="marquee-set">
+        <span class="marquee-item"><img src="assets/logos/sponsor-solidworks.webp" alt="SolidWorks" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-siemens.webp" alt="Siemens" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-simscale.webp" alt="SimScale" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-tmotor.webp" alt="T-Motor" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-revogreen.webp" alt="Revogreen Technologies" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-uav-marketplace.webp" alt="UAV Marketplace" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-quadkart.webp" alt="Quadkart" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-drkstore.webp" alt="drkstore.in" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-onlyscrews.webp" alt="OnlyScrews" loading="lazy"></span>
+      </div>
+      <div class="marquee-set" aria-hidden="true">
+        <span class="marquee-item"><img src="assets/logos/sponsor-solidworks.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-siemens.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-simscale.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-tmotor.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-revogreen.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-uav-marketplace.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-quadkart.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-drkstore.webp" alt="" loading="lazy"></span>
+        <span class="marquee-item"><img src="assets/logos/sponsor-onlyscrews.webp" alt="" loading="lazy"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sponsor-band-foot reveal">
+    <a href="contact.html" class="btn btn-outline">Put your logo on the airframe <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
 <!-- ============ SITE MAP TEASER ============ -->
 <section class="section" id="sitemap">
   <div class="section-head reveal">
     <span class="section-tag">Explore</span>
-    <h2 class="section-title">Six systems.<br><span class="grad-text">One flight line.</span></h2>
-    <p class="section-desc">Every tab is its own page — dig into the mission, the results, the research, the people, or the partnership case.</p>
+    <h2 class="section-title">Five systems.<br><span class="grad-text">One flight line.</span></h2>
+    <p class="section-desc">Every tab is its own page — dig into the mission, the research, the people, the media, or the partnership case.</p>
   </div>
 
   <div class="explore-grid explore-grid--six">
@@ -181,33 +320,27 @@
       <p>Discipline, cadence and the people behind indigenous airframes.</p>
       <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
     </a>
-    <a href="flight-log.html" class="explore-card reveal">
-      <div class="explore-visual explore-visual--join"></div>
-      <h3>02 · Flight Log</h3>
-      <p>A podium habit — results from 2017 through 2025.</p>
-      <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
-    </a>
     <a href="research.html" class="explore-card reveal">
       <div class="explore-visual explore-visual--partner"></div>
-      <h3>03 · R&amp;D</h3>
+      <h3>02 · R&amp;D</h3>
       <p>Flight controllers, ESCs, GPS-denied nav and the 2026 manifest.</p>
       <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
     </a>
     <a href="team.html" class="explore-card reveal">
       <div class="explore-visual explore-visual--media"></div>
-      <h3>04 · Squad</h3>
+      <h3>03 · Squad</h3>
       <p>Ten active engineers across four divisions.</p>
       <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
     </a>
     <a href="gallery.html" class="explore-card reveal">
       <div class="explore-visual explore-visual--join"></div>
-      <h3>05 · Gallery</h3>
+      <h3>04 · Gallery</h3>
       <p>Media, the fleet, and how to join it.</p>
       <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
     </a>
     <a href="contact.html" class="explore-card reveal">
       <div class="explore-visual explore-visual--partner"></div>
-      <h3>06 · Partner</h3>
+      <h3>05 · Partner</h3>
       <p>Sponsorship tiers and the case for backing us.</p>
       <span class="explore-link">Enter <span class="btn-arrow">→</span></span>
     </a>
@@ -220,20 +353,8 @@
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <span class="brand-mark">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
-          <defs>
-            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </span>
-      <div>
-        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
-        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
-      </div>
+      <img class="footer-logo" src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218" loading="lazy">
+      <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
     </div>
     <a href="contact.html" class="btn btn-outline">Become a partner →</a>
   </div>
@@ -243,10 +364,11 @@
       <h4>Explore</h4>
       <a href="index.html">Home</a>
       <a href="mission.html">Mission</a>
-      <a href="flight-log.html">Flight Log</a>
       <a href="research.html">R&amp;D</a>
       <a href="team.html">Squad</a>
       <a href="gallery.html">Gallery</a>
+      <a href="media.html">Media</a>
+      <a href="join.html">Join</a>
       <a href="contact.html">Partner</a>
     </div>
     <div>
@@ -262,6 +384,7 @@
       <span>Bull Temple Road, Basavanagudi,</span>
       <span>Bengaluru, Karnataka 560019</span>
       <span class="mono">12.9416°N · 77.5660°E</span>
+      <img class="footer-inst" src="assets/logos/bmsce.svg" alt="BMS College of Engineering" loading="lazy" width="300" height="300">
     </div>
   </div>
 
