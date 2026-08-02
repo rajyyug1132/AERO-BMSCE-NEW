@@ -178,6 +178,84 @@
   </div>
 </section>
 
+<!-- ============ AIRFRAME EXPLORER ============ -->
+<section class="explorer" id="explorer">
+  <div class="explorer-head reveal">
+    <span class="section-tag">Airframe explorer</span>
+    <h2 class="section-title">Turn it over.<br><span class="grad-text">Look inside.</span></h2>
+    <p class="section-desc">The competition airframe, as modelled. Drag to rotate, or pick a subsystem to jump to its view.</p>
+  </div>
+
+  <div class="explorer-body">
+    <div class="explorer-stage">
+      <div class="explorer-viewer" id="explorerViewer" role="img"
+           aria-label="Interactive 360-degree view of the AeroBMSCE competition airframe">
+        <img id="explorerFrame" src="assets/plane/frame_00.webp" alt="" draggable="false" width="640" height="264">
+      </div>
+
+      <div class="explorer-controls">
+        <button class="explorer-btn" id="explorerPrev" aria-label="Rotate left">&#8249;</button>
+        <div class="explorer-scrub">
+          <input type="range" id="explorerRange" min="0" max="59" value="0" step="1"
+                 aria-label="Rotate the airframe">
+          <span class="explorer-readout"><span id="explorerDeg">0</span>°</span>
+        </div>
+        <button class="explorer-btn" id="explorerNext" aria-label="Rotate right">&#8250;</button>
+        <button class="explorer-btn explorer-btn--play" id="explorerPlay"
+                aria-label="Pause rotation" aria-pressed="true">&#10073;&#10073;</button>
+      </div>
+    </div>
+
+    <div class="explorer-panel">
+      <div class="subsystem-list" role="tablist" aria-label="Airframe subsystems">
+        <button class="subsystem is-active" role="tab" aria-selected="true" data-frame="0"
+                data-title="Airframe" data-id="S01"
+                data-spec="Balsa and carbon, ribs lofted from CAD"
+                data-body="Rib lofting, spar layup, balsa and carbon fabrication, covering film. Every rib starts as a CAD constraint, cut and assembled by students.">
+          <span class="subsystem-id">S01</span>
+          <span class="subsystem-name">Airframe</span>
+          <span class="subsystem-arrow">&#8594;</span>
+        </button>
+
+        <button class="subsystem" role="tab" aria-selected="false" data-frame="15"
+                data-title="Avionics" data-id="S02"
+                data-spec="In-house autopilot, sensor fusion, telemetry"
+                data-body="Indigenous flight controller hardware and firmware — sensor fusion, stabilization and mission logic built from the ground up, with custom ESCs tuned to our thrust profiles.">
+          <span class="subsystem-id">S02</span>
+          <span class="subsystem-name">Avionics</span>
+          <span class="subsystem-arrow">&#8594;</span>
+        </button>
+
+        <button class="subsystem" role="tab" aria-selected="false" data-frame="30"
+                data-title="Payload bay" data-id="S03"
+                data-spec="Real-time telemetry, reconnaissance profile"
+                data-body="Long-endurance platforms with real-time payload telemetry. The bay is sized around the mission, not the other way round.">
+          <span class="subsystem-id">S03</span>
+          <span class="subsystem-name">Payload bay</span>
+          <span class="subsystem-arrow">&#8594;</span>
+        </button>
+
+        <button class="subsystem" role="tab" aria-selected="false" data-frame="45"
+                data-title="Control surfaces" data-id="S04"
+                data-spec="Morphing wingtips, deployable micro-fins"
+                data-body="Adaptive wingtip geometry to cut induced drag and extend range across flight regimes, plus stowable control surfaces for compact, payload-launched aircraft.">
+          <span class="subsystem-id">S04</span>
+          <span class="subsystem-name">Control surfaces</span>
+          <span class="subsystem-arrow">&#8594;</span>
+        </button>
+      </div>
+
+      <div class="subsystem-detail" id="subsystemDetail" role="tabpanel" aria-live="polite">
+        <span class="detail-id">S01</span>
+        <h3 class="detail-title">Airframe</h3>
+        <p class="detail-spec">Balsa and carbon, ribs lofted from CAD</p>
+        <p class="detail-body">Rib lofting, spar layup, balsa and carbon fabrication, covering film. Every rib starts as a CAD constraint, cut and assembled by students.</p>
+        <a href="research.html" class="btn btn-outline">Full research tracks <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FLIGHT LOG PREVIEW ============ -->
 <section class="section" id="flightlog">
   <div class="section-head reveal">

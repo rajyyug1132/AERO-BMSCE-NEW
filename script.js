@@ -303,6 +303,126 @@
     });
   });
 
+  /* ---------- Airframe explorer ---------- */
+  const viewer = document.getElementById('explorerViewer');
+  if (viewer){
+    const frameEl  = document.getElementById('explorerFrame');
+    const range    = document.getElementById('explorerRange');
+    const degOut   = document.getElementById('explorerDeg');
+    const playBtn  = document.getElementById('explorerPlay');
+    const prevBtn  = document.getElementById('explorerPrev');
+    const nextBtn  = document.getElementById('explorerNext');
+    const detail   = document.getElementById('subsystemDetail');
+    const subs     = Array.from(document.querySelectorAll('.subsystem'));
+
+    let frame = 0;
+    let autoplay = !reduceMotion;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartFrame = 0;
+    let glideTarget = null;
+
+    function render(){
+      frameEl.src = framePaths[frame];
+      range.value = frame;
+      degOut.textContent = Math.round(frame * (360 / FRAME_COUNT));
+    }
+
+    function setFrame(n){
+      frame = ((Math.round(n) % FRAME_COUNT) + FRAME_COUNT) % FRAME_COUNT;
+      render();
+    }
+
+    // shortest-path glide toward a subsystem's view
+    function glideTo(target){
+      glideTarget = target;
+      autoplay = false;
+      syncPlayBtn();
+    }
+
+    function syncPlayBtn(){
+      playBtn.innerHTML = autoplay ? '&#10073;&#10073;' : '&#9654;';
+      playBtn.setAttribute('aria-label', autoplay ? 'Pause rotation' : 'Play rotation');
+      playBtn.setAttribute('aria-pressed', String(autoplay));
+    }
+
+    let last = performance.now();
+    function loop(now){
+      const dt = now - last;
+      last = now;
+
+      if (glideTarget !== null){
+        let diff = glideTarget - frame;
+        if (diff >  FRAME_COUNT / 2) diff -= FRAME_COUNT;
+        if (diff < -FRAME_COUNT / 2) diff += FRAME_COUNT;
+        if (Math.abs(diff) < 0.6){
+          setFrame(glideTarget);
+          glideTarget = null;
+        } else {
+          setFrame(frame + diff * 0.16);
+        }
+      } else if (autoplay && !dragging){
+        setFrame(frame + (dt / 16.7) * 0.12);
+      }
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    /* drag to rotate — pointer events cover mouse, touch and pen */
+    viewer.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      glideTarget = null;
+      dragStartX = e.clientX;
+      dragStartFrame = frame;
+      viewer.setPointerCapture(e.pointerId);
+    });
+    viewer.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const delta = (e.clientX - dragStartX) / viewer.offsetWidth;
+      setFrame(dragStartFrame + delta * FRAME_COUNT * 1.4);
+    });
+    ['pointerup', 'pointercancel'].forEach(evt =>
+      viewer.addEventListener(evt, () => { dragging = false; })
+    );
+
+    range.addEventListener('input', () => {
+      glideTarget = null;
+      autoplay = false;
+      syncPlayBtn();
+      setFrame(parseInt(range.value, 10));
+    });
+
+    prevBtn.addEventListener('click', () => { autoplay = false; syncPlayBtn(); setFrame(frame - 3); });
+    nextBtn.addEventListener('click', () => { autoplay = false; syncPlayBtn(); setFrame(frame + 3); });
+    playBtn.addEventListener('click', () => { autoplay = !autoplay; glideTarget = null; syncPlayBtn(); });
+
+    /* subsystem selection */
+    subs.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        subs.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+
+        glideTo(parseInt(btn.dataset.frame, 10));
+
+        detail.classList.add('is-swapping');
+        setTimeout(() => {
+          detail.querySelector('.detail-id').textContent    = btn.dataset.id;
+          detail.querySelector('.detail-title').textContent = btn.dataset.title;
+          detail.querySelector('.detail-spec').textContent  = btn.dataset.spec;
+          detail.querySelector('.detail-body').textContent  = btn.dataset.body;
+          detail.classList.remove('is-swapping');
+        }, 150);
+      });
+    });
+
+    syncPlayBtn();
+    render();
+  }
+
   /* ---------- Gallery lightbox ---------- */
   const tiles = Array.from(document.querySelectorAll('.media-tile'));
   if (tiles.length){
