@@ -581,6 +581,18 @@ main, header, footer{ position:relative; z-index:2; }
 .t-name{ font-weight:600; font-size:14.5px; color:var(--white); }
 .t-role{ font-size:12.5px; color:var(--slate); }
 
+/* lead card — gold-lit, sits first in Core Command */
+.team-card--lead{
+  border-color:var(--border-hover);
+  background:linear-gradient(140deg, rgba(244,196,48,0.10), rgba(154,51,35,0.06) 60%, transparent);
+}
+.team-card--lead .avatar{
+  background:linear-gradient(135deg, var(--cyan), var(--cyan-soft));
+  color:#1C1512; border-color:transparent;
+  box-shadow:0 0 18px rgba(244,196,48,0.35);
+}
+.team-card--lead .t-role{ color:var(--cyan); font-weight:500; }
+
 /* ---------- explore / gallery ---------- */
 .explore-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
 .explore-card{
