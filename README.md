@@ -18,12 +18,11 @@ python3 -m http.server 8000
 | `mission.html` | Discipline, cadence, people |
 | `research.html` | R&D projects and the 2026 manifest |
 | `team.html` | Squad, by division |
-| `gallery.html` | Hub linking to media, join and partner |
-| `media.html` | Competition photography, by album |
+| `gallery.html` | Competition photography, by album |
 | `join.html` | Divisions, recruitment process, application form |
 | `contact.html` | Partnership contact and enquiry form |
 
-All eight pages share `style.css`, `script.js`, and the assets in `assets/`.
+All seven pages share `style.css`, `script.js`, and the assets in `assets/`.
 
 ## The hero aircraft
 
@@ -64,7 +63,7 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 
 `assets/media/` holds competition photos from two campaigns — `usa-*` from SAE Aero Design West in Texas, `ddc-*` from the Drone Development Challenge in Tamil Nadu. Sources were 7–15 MB JPEGs; they're resized to 1500 px on the long edge and saved as WebP at quality 76, which lands each one between 55 and 290 KB.
 
-To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `media.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
+To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
 
 ## Deploying
 
@@ -88,6 +87,5 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 ## Still to do
 
 - Replace the placeholder squad names in `team.html` with the real roster and photographs
-- Swap the CAD renders on `media.html` for flight-line photography
 - Set `FORM_ENDPOINT` once a Formspree form exists
 - Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
