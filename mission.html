@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission — AeroBMSCE</title>
+<meta name="description" content="AeroBMSCE's mission: discipline, cadence and people. Indigenous airframes engineered, not sourced.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ambient canvas starfield -->
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
+          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
+          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
+          <defs>
+            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/>
+              <stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F5EBDA"/>
+              <stop offset="1" stop-color="#BC9C79"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01" class="active">Mission</a>
+      <a href="flight-log.html" data-idx="02">Flight Log</a>
+      <a href="research.html" data-idx="03">R&amp;D</a>
+      <a href="team.html" data-idx="04">Squad</a>
+      <a href="gallery.html" data-idx="05">Gallery</a>
+      <a href="contact.html" data-idx="06">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html" class="active">01 · Mission</a>
+    <a href="flight-log.html">02 · Flight Log</a>
+    <a href="research.html">03 · R&amp;D</a>
+    <a href="team.html">04 · Squad</a>
+    <a href="gallery.html">05 · Gallery</a>
+    <a href="contact.html">06 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">01 — Mission</span>
+    <h1 class="section-title">We don't buy our aircraft.<br><span class="grad-text">We build them.</span></h1>
+    <p class="section-desc">AeroBMSCE is the aeronautical society of BMS College of Engineering. Since 2010 we have designed, built and flown fixed-wing, VTOL and hybrid UAVs — indigenous airframes with integrated flight systems — and carried them to podiums from IIT Bombay to SAE Aero Design in Texas.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="mission">
+  <div class="pillar-grid">
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Discipline</h3>
+      <p>Systems integration over off-the-shelf assembly — every airframe and subsystem is engineered, not sourced.</p>
+    </div>
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Cadence</h3>
+      <p>A continuous design–build–fly loop across national and international competition seasons.</p>
+    </div>
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 20c1.5-4 4.2-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>People</h3>
+      <p>Student engineers learning at the edge — the talent India's UAV industry hires from next.</p>
+    </div>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>See the results this discipline produces.</h3>
+      <p>Sixteen years of podiums, from campus exhibitions to the SAE flight line in Texas.</p>
+    </div>
+    <a href="flight-log.html" class="btn btn-primary btn-lg">Flight Log <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
+          <defs>
+            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <div>
+        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+      </div>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="flight-log.html">Flight Log</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

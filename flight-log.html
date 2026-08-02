@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Log — AeroBMSCE</title>
+<meta name="description" content="AeroBMSCE flight log: results from 2017 to 2025 across SAE Aero Design, Aerothon, NITK, GAT and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ambient canvas starfield -->
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
+          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
+          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
+          <defs>
+            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/>
+              <stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F5EBDA"/>
+              <stop offset="1" stop-color="#BC9C79"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01">Mission</a>
+      <a href="flight-log.html" data-idx="02" class="active">Flight Log</a>
+      <a href="research.html" data-idx="03">R&amp;D</a>
+      <a href="team.html" data-idx="04">Squad</a>
+      <a href="gallery.html" data-idx="05">Gallery</a>
+      <a href="contact.html" data-idx="06">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html">01 · Mission</a>
+    <a href="flight-log.html" class="active">02 · Flight Log</a>
+    <a href="research.html">03 · R&amp;D</a>
+    <a href="team.html">04 · Squad</a>
+    <a href="gallery.html">05 · Gallery</a>
+    <a href="contact.html">06 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">02 — Flight Log</span>
+    <h1 class="section-title">A podium <span class="grad-text">habit.</span></h1>
+    <p class="section-desc">Sixteen years of results — campus exhibitions, national circuits, and the SAE international flight line.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="flightlog">
+  <div class="timeline">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>SAE Aerothon</strong> — 2nd place <span class="tag">₹1.25L prize</span></li>
+          <li><strong>Drone Development Challenge</strong> — 1st, Best Technical Presentation <span class="tag">₹10k</span></li>
+          <li><strong>ADDC</strong> — 1st, Best Innovation <span class="tag">₹5k</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>NITK</strong> — 2nd place</li>
+          <li><strong>GAT</strong> — 1st place</li>
+          <li><strong>SAE Aero Design West</strong> — 12th globally</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2022</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>Aerothon</strong> — 3rd place <span class="tag">₹50k</span></li>
+          <li><strong>III South India Exhibition</strong> — 2nd place <span class="tag">₹15k</span></li>
+          <li><strong>AI-VTOL (IIT Bombay)</strong> — 4th nationally</li>
+          <li><strong>SAE Aero Design West</strong> — 9th &amp; 11th globally</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2020</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>SAE-India</strong> — 1st overall · Blue Impulse <span class="tag">₹1L</span></li>
+          <li><strong>SAE Aero Design West</strong> — 8th globally</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2018</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>SAE India (Anna University)</strong> — 3rd overall</li>
+          <li><strong>Design Report</strong> — 2nd place</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-row reveal">
+      <div class="timeline-year">2017</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-card">
+        <ul>
+          <li><strong>Manovegam Micro Class</strong> — Best Innovation</li>
+          <li><strong>Boeing Aeromodelling</strong> — 2nd of 174 teams</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>See what makes these results possible.</h3>
+      <p>Indigenous flight controllers, custom ESCs, and GPS-denied navigation — built in-house.</p>
+    </div>
+    <a href="research.html" class="btn btn-primary btn-lg">R&amp;D <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
+          <defs>
+            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <div>
+        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+      </div>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="flight-log.html">Flight Log</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

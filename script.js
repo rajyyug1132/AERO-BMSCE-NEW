@@ -1,0 +1,226 @@
+/* ===========================================================
+   AeroBMSCE — interactions
+   Starfield canvas, scroll reveal, nav state, countdown, counters
+=========================================================== */
+
+(function(){
+  "use strict";
+
+  /* ---------- Starfield canvas ---------- */
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let w, h;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    buildStars();
+  }
+
+  function buildStars(){
+    const count = Math.min(160, Math.floor((w * h) / 9000));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.4 + 0.3,
+      baseAlpha: Math.random() * 0.6 + 0.2,
+      speed: Math.random() * 0.15 + 0.02,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      // most sparks read gold (cosmetics); a minority glow brick-red (background accent)
+      ember: Math.random() < 0.28
+    }));
+  }
+
+  let t = 0;
+  function drawStars(){
+    ctx.clearRect(0, 0, w, h);
+    t += 0.01;
+    for (const s of stars){
+      s.y += s.speed;
+      if (s.y > h) s.y = 0;
+      const twinkle = reduceMotion ? 1 : (Math.sin(t + s.twinkleOffset) * 0.3 + 0.7);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.ember
+        ? `rgba(196, 80, 47, ${s.baseAlpha * twinkle})`
+        : `rgba(244, 210, 140, ${s.baseAlpha * twinkle})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  drawStars();
+
+  /* ---------- Nav scroll state ---------- */
+  const nav = document.getElementById('nav');
+  function onScroll(){
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Mobile menu ---------- */
+  const navToggle = document.getElementById('navToggle');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    mobileOverlay.classList.toggle('open');
+    document.body.style.overflow = mobileOverlay.classList.contains('open') ? 'hidden' : '';
+  });
+  mobileOverlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('.reveal, .hero-title');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  /* stagger hero step reveal a touch */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.hero-content .eyebrow')?.classList.add('in-view');
+  });
+
+  /* ---------- Counter animation ---------- */
+  const counters = document.querySelectorAll('.stat-num');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterIO.observe(c));
+
+  /* ---------- Countdown to next flight line ---------- */
+  // Target: next manifest event window — adjust as real dates are confirmed.
+  const target = new Date('2026-09-20T09:00:00+05:30').getTime();
+  const cdD = document.getElementById('cd-d');
+  const cdH = document.getElementById('cd-h');
+  const cdM = document.getElementById('cd-m');
+  const cdS = document.getElementById('cd-s');
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function updateCountdown(){
+    const now = Date.now();
+    let diff = target - now;
+    if (diff < 0) diff = 0;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    if (cdD) cdD.textContent = pad(d);
+    if (cdH) cdH.textContent = pad(h);
+    if (cdM) cdM.textContent = pad(m);
+    if (cdS) cdS.textContent = pad(s);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ---------- Rotating CAD model (real turntable render, image sequence) ---------- */
+  const FRAME_COUNT = 60;
+  const framePaths = Array.from({ length: FRAME_COUNT }, (_, i) =>
+    `assets/plane/frame_${String(i).padStart(2, '0')}.webp`
+  );
+  const planeFrameEl = document.getElementById('planeFrame');
+
+  if (planeFrameEl){
+    // preload the sequence so playback doesn't stutter
+    const frameImages = framePaths.map((src) => {
+      const im = new Image();
+      im.src = src;
+      return im;
+    });
+
+    let currentFrame = 0;
+    let frameAccumulator = 0;
+    const BASE_SPEED = 0.1;   // frames advanced per ~16.7ms tick when idle
+    let rotationSpeed = BASE_SPEED;
+    let lastTime = performance.now();
+
+    function tick(now){
+      const dt = now - lastTime;
+      lastTime = now;
+      if (!reduceMotion){
+        frameAccumulator += rotationSpeed * (dt / 16.7);
+        while (Math.abs(frameAccumulator) >= 1){
+          const step = frameAccumulator > 0 ? 1 : -1;
+          currentFrame = (currentFrame + step + FRAME_COUNT) % FRAME_COUNT;
+          frameAccumulator -= step;
+        }
+        planeFrameEl.src = framePaths[currentFrame];
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // cursor steers spin speed/direction — release drifts back to a slow idle turn
+    const hero = document.getElementById('hero');
+    if (hero){
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        rotationSpeed = BASE_SPEED + px * 0.9;
+      });
+      hero.addEventListener('mouseleave', () => {
+        rotationSpeed = BASE_SPEED;
+      });
+    }
+  }
+
+  /* ---------- Hero glow parallax on pointer move ---------- */
+  const heroGlow = document.querySelector('.hero-glow');
+  const heroForGlow = document.getElementById('hero');
+  if (heroForGlow && heroGlow && !reduceMotion){
+    heroForGlow.addEventListener('mousemove', (e) => {
+      const rect = heroForGlow.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      heroGlow.style.transform = `translate(calc(-50% + ${px * 40}px), ${py * 40}px)`;
+    });
+  }
+
+  /* ---------- Smooth scroll for in-page anchors ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1){
+        const target = document.querySelector(id);
+        if (target){
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+})();

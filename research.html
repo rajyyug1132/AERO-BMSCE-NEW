@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R&amp;D — AeroBMSCE</title>
+<meta name="description" content="AeroBMSCE research and development: indigenous flight controllers, ESCs, GPS-denied navigation, morphing wingtips and the 2026 competition manifest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ambient canvas starfield -->
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
+          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
+          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
+          <defs>
+            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/>
+              <stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F5EBDA"/>
+              <stop offset="1" stop-color="#BC9C79"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01">Mission</a>
+      <a href="flight-log.html" data-idx="02">Flight Log</a>
+      <a href="research.html" data-idx="03" class="active">R&amp;D</a>
+      <a href="team.html" data-idx="04">Squad</a>
+      <a href="gallery.html" data-idx="05">Gallery</a>
+      <a href="contact.html" data-idx="06">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html">01 · Mission</a>
+    <a href="flight-log.html">02 · Flight Log</a>
+    <a href="research.html" class="active">03 · R&amp;D</a>
+    <a href="team.html">04 · Squad</a>
+    <a href="gallery.html">05 · Gallery</a>
+    <a href="contact.html">06 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">03 — Research &amp; Development</span>
+    <h1 class="section-title">Systems integration &amp;<br><span class="grad-text">applied research.</span></h1>
+    <p class="section-desc">Indigenous airframes, integrated flight systems and autonomy — engineered in-house, not off-the-shelf.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="rnd">
+  <div class="rnd-grid">
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R01</span>
+      <h3>Indigenous Flight Controller</h3>
+      <p>In-house autopilot hardware + firmware — sensor fusion, stabilization, and mission logic built from the ground up.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R02</span>
+      <h3>ESC Development</h3>
+      <p>Custom electronic speed controllers tuned for our airframes and thrust profiles.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R03</span>
+      <h3>GPS-Denied Navigation</h3>
+      <p>Vision- and inertial-based positioning for environments where GPS is jammed or unavailable.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R04</span>
+      <h3>Surveillance UAV</h3>
+      <p>Long-endurance platforms with real-time payload telemetry for reconnaissance missions.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R05</span>
+      <h3>Morphing Wingtips</h3>
+      <p>Adaptive wingtip geometry to cut induced drag and extend range across flight regimes.</p>
+    </div>
+    <div class="rnd-card reveal">
+      <span class="rnd-id">R06</span>
+      <h3>Deployable Micro-Fins</h3>
+      <p>Stowable control surfaces for compact, payload-launched aircraft.</p>
+    </div>
+  </div>
+
+  <div class="manifest reveal">
+    <span class="manifest-label">04 — Manifest 2026</span>
+    <div class="manifest-chips">
+      <span class="chip">SAE Drone Development Challenge (DDC)</span>
+      <span class="chip">SAE International Aero Design · Dallas, TX</span>
+      <span class="chip">Aerothon</span>
+      <span class="chip">ADDC</span>
+      <span class="chip">NACDEC</span>
+      <span class="chip">ISRO IROC</span>
+      <span class="chip">NITK Drone Racing</span>
+    </div>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>Meet the engineers behind the research.</h3>
+      <p>Ten active members across Core Command, Systems, Airframe and the Flying Phantoms.</p>
+    </div>
+    <a href="team.html" class="btn btn-primary btn-lg">The Squad <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
+          <defs>
+            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <div>
+        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+      </div>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="flight-log.html">Flight Log</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

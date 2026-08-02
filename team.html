@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Squad — AeroBMSCE</title>
+<meta name="description" content="Meet AeroBMSCE's ten active members across Core Command, Systems Integration, Airframe and the Flying Phantoms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ambient canvas starfield -->
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad)"/>
+          <path d="M20 20 L20 38 L14 32 L14 26 Z" fill="url(#brandGrad2)" opacity="0.7"/>
+          <path d="M20 20 L20 38 L26 32 L26 26 Z" fill="url(#brandGrad2)" opacity="0.9"/>
+          <defs>
+            <linearGradient id="brandGrad" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/>
+              <stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+            <linearGradient id="brandGrad2" x1="14" y1="20" x2="26" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F5EBDA"/>
+              <stop offset="1" stop-color="#BC9C79"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="mission.html" data-idx="01">Mission</a>
+      <a href="flight-log.html" data-idx="02">Flight Log</a>
+      <a href="research.html" data-idx="03">R&amp;D</a>
+      <a href="team.html" data-idx="04" class="active">Squad</a>
+      <a href="gallery.html" data-idx="05">Gallery</a>
+      <a href="contact.html" data-idx="06">Partner</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="btn btn-ghost hide-mobile">Team Login</a>
+      <a href="contact.html" class="btn btn-primary">Partner With Us<span class="btn-arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <nav>
+    <a href="mission.html">01 · Mission</a>
+    <a href="flight-log.html">02 · Flight Log</a>
+    <a href="research.html">03 · R&amp;D</a>
+    <a href="team.html" class="active">04 · Squad</a>
+    <a href="gallery.html">05 · Gallery</a>
+    <a href="contact.html">06 · Partner</a>
+  </nav>
+</div>
+
+<main id="top">
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+  <div class="page-header-inner reveal">
+    <span class="section-tag">Personnel · 10 active</span>
+    <h1 class="section-title">The <span class="grad-text">Squad.</span></h1>
+    <p class="section-desc">Four divisions, one flight line — the students who design, build and fly every airframe.</p>
+  </div>
+</section>
+
+<section class="section section--top-tight" id="team">
+  <div class="team-block reveal">
+    <div class="team-block-head">
+      <span class="team-block-idx">01</span>
+      <h3>Core Command</h3>
+      <span class="team-count">3 members</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><span class="avatar">A</span><span class="t-name">A. Rao</span><span class="t-role">Captain</span></div>
+      <div class="team-card"><span class="avatar">P</span><span class="t-name">P. Nair</span><span class="t-role">Vice Captain</span></div>
+      <div class="team-card"><span class="avatar">K</span><span class="t-name">K. Mehta</span><span class="t-role">Chief Engineer</span></div>
+    </div>
+  </div>
+
+  <div class="team-block reveal">
+    <div class="team-block-head">
+      <span class="team-block-idx">02</span>
+      <h3>Systems Integration</h3>
+      <span class="team-count">3 members</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><span class="avatar">S</span><span class="t-name">S. Verma</span><span class="t-role">Systems Lead</span></div>
+      <div class="team-card"><span class="avatar">A</span><span class="t-name">A. Kumar</span><span class="t-role">Flight Controller</span></div>
+      <div class="team-card"><span class="avatar">R</span><span class="t-name">R. Das</span><span class="t-role">Sensor Systems</span></div>
+    </div>
+  </div>
+
+  <div class="team-block reveal">
+    <div class="team-block-head">
+      <span class="team-block-idx">03</span>
+      <h3>Airframe</h3>
+      <span class="team-count">3 members</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><span class="avatar">M</span><span class="t-name">M. Sharma</span><span class="t-role">Structures Lead</span></div>
+      <div class="team-card"><span class="avatar">F</span><span class="t-name">F. Quereshi</span><span class="t-role">Composites</span></div>
+      <div class="team-card"><span class="avatar">N</span><span class="t-name">N. Iyer</span><span class="t-role">CAD / Manufacturing</span></div>
+    </div>
+  </div>
+
+  <div class="team-block reveal">
+    <div class="team-block-head">
+      <span class="team-block-idx">04</span>
+      <h3>Flying Phantoms</h3>
+      <span class="team-count">1 member</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><span class="avatar">FP</span><span class="t-name">Flying Phantoms</span><span class="t-role">Team Brand</span></div>
+    </div>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h3>Want to fly with the squad?</h3>
+      <p>See how the fleet is organized and how to apply.</p>
+    </div>
+    <a href="gallery.html" class="btn btn-primary btn-lg">Join the Fleet <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2 L34 26 L20 20 L6 26 Z" fill="url(#brandGrad3)"/>
+          <defs>
+            <linearGradient id="brandGrad3" x1="6" y1="2" x2="34" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F4C430"/><stop offset="1" stop-color="#E0A542"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <div>
+        <span class="brand-text">AERO<span class="brand-thin">BMSCE</span></span>
+        <p>Above Gravity, Beyond Limits. ESTD 2010 · Propel Lab-3 · 10+ departments.</p>
+      </div>
+    </div>
+    <a href="contact.html" class="btn btn-outline">Become a partner →</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="mission.html">Mission</a>
+      <a href="flight-log.html">Flight Log</a>
+      <a href="research.html">R&amp;D</a>
+      <a href="team.html">Squad</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Partner</a>
+    </div>
+    <div>
+      <h4>Partnerships</h4>
+      <span>Shatakshi Verma</span>
+      <span>Partnership Head</span>
+      <a href="mailto:aerobmsce@bmsce.ac.in">aerobmsce@bmsce.ac.in</a>
+      <a href="tel:+917619378190">+91 76193 78190</a>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <span>BMS College of Engineering,</span>
+      <span>Bull Temple Road, Basavanagudi,</span>
+      <span>Bengaluru, Karnataka 560019</span>
+      <span class="mono">12.9416°N · 77.5660°E</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Aeronautical Society, BMS College of Engineering</span>
+    <span>Above Gravity, Beyond Limits</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
