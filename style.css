@@ -1436,3 +1436,48 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .auth-form-panel{ padding:32px 20px; }
   .auth-row{ flex-direction:column; align-items:flex-start; gap:12px; }
 }
+
+/* ===========================================================
+   GALLERY — images only
+   No page header, no album titles, no CTA. Captions ride over
+   the image on hover so at rest it reads as a pure wall.
+=========================================================== */
+.gallery-only{ padding-top:120px; }
+
+.gallery-only .media-grid{ gap:14px; }
+
+.gallery-only .media-tile{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+}
+.gallery-only .media-tile img{
+  transition:transform 0.7s var(--ease), filter 0.5s var(--ease);
+}
+.gallery-only .media-tile:hover img{
+  transform:scale(1.035);
+  filter:brightness(0.7);
+}
+
+/* caption becomes an overlay rather than a bar under the photo */
+.gallery-only .media-tile figcaption{
+  position:absolute; inset:auto 0 0 0;
+  border-top:none;
+  padding:20px 22px;
+  background:linear-gradient(180deg, transparent, rgba(6,4,3,0.9));
+  opacity:0; transform:translateY(10px);
+  transition:opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.gallery-only .media-tile:hover figcaption,
+.gallery-only .media-tile:focus-visible figcaption{
+  opacity:1; transform:translateY(0);
+}
+
+@media (max-width: 980px){
+  .gallery-only{ padding-top:100px; }
+}
+@media (max-width: 600px){
+  .gallery-only{ padding-top:90px; }
+  /* touch has no hover — keep captions visible so photos stay identified */
+  .gallery-only .media-tile figcaption{ opacity:1; transform:none; }
+}
