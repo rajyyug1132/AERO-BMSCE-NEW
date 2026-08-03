@@ -89,6 +89,22 @@ const SUPABASE_ANON_KEY = 'your-anon-key';
 
 Two things before this goes live: switch on Row Level Security for every table — the anon key is public by design and RLS is what actually protects your data — and never put the `service_role` key in client code. Accounts are created by an admin in the Supabase dashboard; there is deliberately no public signup.
 
+## Partnership prospectus
+
+`assets/docs/AeroBMSCE-Partnership-Prospectus.pdf` is the 7-page collaboration deck, recompressed from 6.9 MB to 1.7 MB with Ghostscript at 144 dpi — text layer intact.
+
+Its contents are also built into `contact.html` as real HTML: the credibility strip, all four collaboration tiers, and the six partner outcomes. That way the case is readable and indexable without anyone opening a PDF, and the download is there for people who want to forward it.
+
+To refresh after editing the deck:
+
+```bash
+gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dColorImageResolution=144 \
+   -dNOPAUSE -dQUIET -dBATCH \
+   -sOutputFile=assets/docs/AeroBMSCE-Partnership-Prospectus.pdf new-deck.pdf
+```
+
+**Founding year needs settling.** The prospectus cover says ESTD 2010, page 2 says "Established in 2012". The site currently says 2010 throughout — hero telemetry, footer, JSON-LD `foundingDate`. Confirm which is right and I will align all of it.
+
 ## Deploying
 
 **Vercel** — import the repo at [vercel.com/new](https://vercel.com/new). No framework, no build command, output directory is the root. `vercel.json` sets clean URLs and long-lived caching on `assets/`.
@@ -113,3 +129,5 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 - Replace the placeholder squad names in `team.html` with the real roster and photographs
 - Set `FORM_ENDPOINT` once a Formspree form exists
 - Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
+- Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
+- Consider adding the DRDO collaboration to `research.html` once it can be described publicly
