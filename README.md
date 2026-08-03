@@ -21,8 +21,9 @@ python3 -m http.server 8000
 | `gallery.html` | Competition photography, by album |
 | `join.html` | Divisions, recruitment process, application form |
 | `contact.html` | Partnership contact and enquiry form |
+| `login.html` | Team sign in (invite-only, `noindex`) |
 
-All seven pages share `style.css`, `script.js`, and the assets in `assets/`.
+All eight pages share `style.css`, `script.js`, and the assets in `assets/`.
 
 ## The hero aircraft
 
@@ -64,6 +65,29 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 `assets/media/` holds competition photos from two campaigns — `usa-*` from SAE Aero Design West in Texas, `ddc-*` from the Drone Development Challenge in Tamil Nadu. Sources were 7–15 MB JPEGs; they're resized to 1500 px on the long edge and saved as WebP at quality 76, which lands each one between 55 and 290 KB.
 
 To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
+
+## Team login
+
+`login.html` is the members' entrance — split layout, brand statement on the left, sign-in on the right, altimeter rail that fills as the form completes. It carries `noindex, nofollow` so it stays out of search.
+
+Auth lives in `auth.js` and is not connected yet. Submitting shows "Sign-in is not live yet". To wire Supabase:
+
+1. Add the client above `auth.js` in `login.html`:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+```
+
+2. Fill the config block at the top of `auth.js`:
+
+```js
+const SUPABASE_URL      = 'https://xxxxxxxx.supabase.co';
+const SUPABASE_ANON_KEY = 'your-anon-key';
+```
+
+`signIn()` already calls `supabase.auth.signInWithPassword` when a client is present and falls back to the stub when it isn't, so nothing else changes. It also redirects straight to `REDIRECT_AFTER_LOGIN` if a session already exists.
+
+Two things before this goes live: switch on Row Level Security for every table — the anon key is public by design and RLS is what actually protects your data — and never put the `service_role` key in client code. Accounts are created by an admin in the Supabase dashboard; there is deliberately no public signup.
 
 ## Deploying
 

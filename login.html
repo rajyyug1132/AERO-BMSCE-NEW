@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Login — AeroBMSCE</title>
+<meta name="description" content="Secure team access for AeroBMSCE members. Invite-only sign in.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0807">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<a class="skip-link" href="#authMain">Skip to sign in</a>
+<canvas id="starfield"></canvas>
+<div class="grain"></div>
+
+<div class="auth-shell">
+
+  <!-- ============ LEFT: BRAND PANEL ============ -->
+  <aside class="auth-brand-panel">
+    <div class="auth-panel-grid" aria-hidden="true"></div>
+
+    <header class="auth-panel-top">
+      <a href="index.html" class="auth-brand-link">
+        <img src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
+      </a>
+      <span class="auth-panel-tag">Secure · Team access</span>
+    </header>
+
+    <div class="auth-panel-body">
+      <span class="auth-eyebrow">Restricted</span>
+      <h1 class="auth-statement">Above Gravity,<br>Beyond Limits</h1>
+      <p class="auth-panel-copy">
+        Team-lead progress tracking for the AeroBMSCE workstreams.
+        Log your wins, flag your blockers, attach the proof.
+      </p>
+    </div>
+
+    <footer class="auth-panel-foot">
+      <span class="mono">12.9416°N · 77.5660°E — ESTD 2010 · Propel Lab-3</span>
+    </footer>
+  </aside>
+
+  <!-- ============ RIGHT: AUTH FORM ============ -->
+  <main class="auth-form-panel" id="authMain">
+    <div class="auth-card">
+      <a href="index.html" class="auth-card-brand">
+        <img src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
+      </a>
+
+      <span class="auth-eyebrow">Authenticate</span>
+      <h2 class="auth-title">Team Login</h2>
+      <p class="auth-sub">Sign in with your AeroBMSCE account.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" name="email" type="email" autocomplete="username"
+                 required placeholder="you@bmsce.ac.in" spellcheck="false">
+        </div>
+
+        <div class="auth-field">
+          <label for="authPassword">Password</label>
+          <div class="auth-input-wrap">
+            <input id="authPassword" name="password" type="password"
+                   autocomplete="current-password" required placeholder="••••••••">
+            <button type="button" class="auth-reveal" id="authReveal"
+                    aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+        </div>
+
+        <div class="auth-row">
+          <label class="auth-check">
+            <input type="checkbox" id="authRemember" checked>
+            <span>Keep me signed in</span>
+          </label>
+          <a href="mailto:aerobmsce@bmsce.ac.in?subject=AeroBMSCE%20access%20reset" class="auth-link">Lost access?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block auth-submit" id="authSubmit">
+          Sign In
+        </button>
+
+        <p class="auth-status" id="authStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="auth-notice">
+        <p class="mono">Invite-only — no public signup. Need access? Ask a Core admin to create your account.</p>
+      </div>
+
+      <a href="index.html" class="auth-back">← Back to site</a>
+    </div>
+  </main>
+
+  <!-- ============ ALTIMETER RAIL ============ -->
+  <div class="auth-rail" aria-hidden="true">
+    <span class="rail-label">MSL</span>
+    <div class="rail-track"><span class="rail-fill" id="railFill"></span></div>
+    <div class="rail-readout">
+      <span class="rail-value" id="railValue">0</span> <span class="rail-unit">FT</span>
+      <span class="rail-caption">ALT</span>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

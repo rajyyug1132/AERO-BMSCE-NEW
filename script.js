@@ -57,12 +57,11 @@
 
   /* ---------- Nav scroll state ---------- */
   const nav = document.getElementById('nav');
-  function onScroll(){
-    if (window.scrollY > 40) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+  if (nav){
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
   /* ---------- Reading progress ---------- */
   const progressBar = document.getElementById('scrollProgress');
@@ -80,8 +79,10 @@
   /* ---------- Mobile menu ---------- */
   const navToggle = document.getElementById('navToggle');
   const mobileOverlay = document.getElementById('mobileOverlay');
+  const hasMenu = Boolean(navToggle && mobileOverlay);
 
   function setMenu(open){
+    if (!hasMenu) return;
     navToggle.classList.toggle('open', open);
     mobileOverlay.classList.toggle('open', open);
     navToggle.setAttribute('aria-expanded', String(open));
@@ -91,12 +92,14 @@
     else navToggle.focus();
   }
 
-  navToggle.addEventListener('click', () => {
-    setMenu(!mobileOverlay.classList.contains('open'));
-  });
-  mobileOverlay.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => setMenu(false));
-  });
+  if (hasMenu){
+    navToggle.addEventListener('click', () => {
+      setMenu(!mobileOverlay.classList.contains('open'));
+    });
+    mobileOverlay.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setMenu(false));
+    });
+  }
 
   /* ---------- Scroll reveal ---------- */
   const revealEls = document.querySelectorAll('.reveal, .hero-title');
@@ -503,7 +506,7 @@
 
   /* ---------- Escape closes the mobile menu ---------- */
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) setMenu(false);
+    if (e.key === 'Escape' && hasMenu && mobileOverlay.classList.contains('open')) setMenu(false);
   });
 
   /* ---------- Smooth scroll for in-page anchors ---------- */
