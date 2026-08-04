@@ -88,17 +88,22 @@ An admin policy that reads `profiles` from inside a policy *on* `profiles` cause
 
 The security linter flags `is_admin()` as callable by signed-in users. That is intentional — it only reports on the caller's own role and leaks nothing.
 
-### Creating the first admin
+### Admins
 
-1. Supabase dashboard → Authentication → Users → **Add user**, with a password.
-2. The trigger creates their `profiles` row automatically.
-3. Promote them:
+Only an admin can promote someone, but the first admin has nobody to promote them — so listed emails in `bootstrap_admins` are made admin automatically the first time they sign up.
+
+`yyugmohapatro@bmsce.ac.in` is already on that list. Creating the account is all that remains:
+
+Supabase dashboard → Authentication → Users → **Add user** → enter the email, set a password, tick *Auto Confirm User*. The trigger creates the profile with `role = 'admin'` on the way in.
+
+`bootstrap_admins` is revoked from `anon` and `authenticated`, so nobody can read or edit it over the API. Only the `SECURITY DEFINER` trigger touches it. Add future Core admins with:
 
 ```sql
-update public.profiles set role = 'admin' where id = '<user-uuid>';
+insert into public.bootstrap_admins (email, note)
+values ('someone@bmsce.ac.in', 'Role — reason');
 ```
 
-That first promotion has to happen in the SQL editor, since no admin exists yet to authorise it.
+Passwords are never generated or stored in this repo, and should not be shared over chat. Use a password manager; if one is ever exposed, rotate it from the dashboard.
 
 ## Team login
 
