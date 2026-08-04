@@ -1907,3 +1907,10 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .queue-row{ flex-direction:column; align-items:flex-start; }
   .dash-whoami{ display:none; }
 }
+
+/* ---------- brand mark vs wordmark ---------- */
+.brand-logo--mark{ display:none; height:30px; }
+@media (max-width: 560px){
+  .brand-logo--full{ display:none; }
+  .brand-logo--mark{ display:block; height:28px; }
+}

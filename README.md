@@ -52,10 +52,16 @@ The handler then POSTs the fields, shows a sending state, and reports failures w
 
 | File | Where it appears |
 | --- | --- |
-| `aerobmsce-wordmark.webp` | Nav brand, footer, favicon |
+| `aerobmsce-wordmark.webp` | Nav brand (wide screens), footer |
+| `aerobmsce-mark.webp` | Nav brand under 560px, JSON-LD logo |
+| `favicon.png`, `apple-touch-icon.png` | Browser tab, iOS home screen |
 | `fleet-blue-impulse.webp`, `fleet-yaksha.webp` | Competition teams on `team.html` |
 | `sponsor-*.webp` | Sponsor wall on `contact.html` |
 | `bmsce.svg` | Institutional mark in the footer |
+
+The eagle mark is cropped out of the wordmark rather than being a separate source file, so the two can never drift apart. Regenerate it by splitting the wordmark at its narrowest column between the eagle and the type, trimming to the ink, then centring on a square canvas.
+
+The favicon uses the square mark, not the wordmark — a 900x218 image squashed into a 16px box is unreadable.
 
 Two sponsor logos — UAV Marketplace and Quadkart — arrived as black artwork, which disappears on this background, so their ink is recoloured to beige. If a vendor sends a proper light version later, drop it in and delete the recoloured file.
 
