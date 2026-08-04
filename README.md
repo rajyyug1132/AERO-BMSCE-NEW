@@ -66,42 +66,57 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 
 To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
 
+## Supabase
+
+Project **AEROBMSCE-02** (`hbugdntqbzxbgnupihah`, ap-southeast-1). Connection details live in `supabase-client.js`, which every page that needs the database loads before its own script.
+
+The publishable key in that file is meant to be public — it identifies the project and grants nothing by itself. Row Level Security decides what any caller may actually do. The `service_role` key must never appear in this repo.
+
+### Tables
+
+`profiles` — team members, keyed to `auth.users`. Rows are created automatically by a trigger when an admin invites someone; there is no public signup. Roles are `admin`, `lead` or `member`. Signed-in members can read the roster and edit only their own row; admins can do anything.
+
+`alumni` — network sign-ups from the Squad page. Anyone may insert, nobody anonymous may read. Rows arrive with `approved = false` and only become publicly visible once an admin flips that flag.
+
+### Verified behaviour
+
+Policies were tested by impersonating the `anon` role: a stranger could insert a row, then read back zero rows, and the entry defaulted to unapproved. Re-run that check after any policy change.
+
+### One deliberate footgun avoided
+
+An admin policy that reads `profiles` from inside a policy *on* `profiles` causes infinite recursion. The `is_admin()` helper is `SECURITY DEFINER` so it reads the table with RLS bypassed and breaks the loop. If you add more admin-gated policies, call `is_admin()` rather than writing a fresh subquery.
+
+The security linter flags `is_admin()` as callable by signed-in users. That is intentional — it only reports on the caller's own role and leaks nothing.
+
+### Creating the first admin
+
+1. Supabase dashboard → Authentication → Users → **Add user**, with a password.
+2. The trigger creates their `profiles` row automatically.
+3. Promote them:
+
+```sql
+update public.profiles set role = 'admin' where id = '<user-uuid>';
+```
+
+That first promotion has to happen in the SQL editor, since no admin exists yet to authorise it.
+
 ## Team login
 
 `login.html` is the members' entrance — split layout, brand statement on the left, sign-in on the right, altimeter rail that fills as the form completes. It carries `noindex, nofollow` so it stays out of search.
 
-Auth lives in `auth.js` and is not connected yet. Submitting shows "Sign-in is not live yet". To wire Supabase:
+Auth lives in `auth.js` and is connected to Supabase. Sign-in calls `signInWithPassword`, and an existing session redirects straight past the form.
 
-1. Add the client above `auth.js` in `login.html`:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-```
-
-2. Fill the config block at the top of `auth.js`:
-
-```js
-const SUPABASE_URL      = 'https://xxxxxxxx.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key';
-```
-
-`signIn()` already calls `supabase.auth.signInWithPassword` when a client is present and falls back to the stub when it isn't, so nothing else changes. It also redirects straight to `REDIRECT_AFTER_LOGIN` if a session already exists.
-
-Two things before this goes live: switch on Row Level Security for every table — the anon key is public by design and RLS is what actually protects your data — and never put the `service_role` key in client code. Accounts are created by an admin in the Supabase dashboard; there is deliberately no public signup.
+It currently redirects to `dashboard.html`, **which does not exist yet** — so a successful sign-in lands on a 404. Building that page is the next job.
 
 ## Alumni network
 
-The Squad page carries a network band and a **Join the Network** button that opens an on-site modal rather than sending people to a Google Form. Responses still land in a Google Sheet — `network.js` POSTs straight to the Google Form endpoint — so the workflow is unchanged but nobody leaves the site.
+The Squad page carries a network band and a **Join the Network** button that opens an on-site modal. Submissions write into the Supabase `alumni` table.
 
-To connect it:
+This replaced an earlier Google Forms approach. Posting to Google Forms has to be sent `no-cors`, which means the browser cannot read the response and a failure looks identical to a success. Writing to Supabase gives a real result, so a duplicate email is reported as "already on the list" and a genuine failure tells the person to email instead.
 
-1. Build the Google Form with these questions: full name, graduation year, email, current role, company, team, how they want to help, LinkedIn.
-2. Open the live form, View Page Source, search for `entry.` — each question has an id like `entry.1234567890`.
-3. Paste the form id (the part between `/d/e/` and `/viewform`) and the entry ids into the `FORM` block at the top of `network.js`.
+Moderation is manual by design. Rows arrive unapproved; an admin reviews them in the dashboard before anything is published.
 
-Until that is filled in the button still works — it opens a prefilled email to `aerobmsce@bmsce.ac.in` so it is never a dead end.
-
-One caveat worth knowing: the POST is sent `no-cors`, so the browser cannot read Google's response. Submissions land, but we cannot verify per-submission success — we treat a completed request as success. That is the standard trade-off for this approach. If you want confirmed delivery later, swap the endpoint for Formspree or a Supabase table.
+**Alumni cards are not populated.** Rather than invent names, `team.html` has a commented template above the network band. Send me the real roster — name, current role, company, team and years — and photographs for `assets/alumni/`, and I will fill the grid.
 
 **Alumni cards are not populated.** Rather than invent names, `team.html` has a commented template above the network band. Send me the real roster — name, current role, company, team and years — and photographs for `assets/alumni/`, and I will fill the grid.
 
@@ -143,9 +158,9 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 ## Still to do
 
 - Replace the placeholder squad names in `team.html` with the real roster and photographs
-- Set `FORM_ENDPOINT` once a Formspree form exists
+- Build `dashboard.html` — sign-in currently redirects to a page that does not exist
+- Set `FORM_ENDPOINT` in `script.js` for the partner and application forms (Supabase could take these too)
 - Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
 - Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
 - Populate the alumni grid on `team.html` once the roster and photographs arrive
-- Fill the `FORM` block in `network.js` with the real Google Form ids

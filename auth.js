@@ -19,8 +19,6 @@
   "use strict";
 
   /* ---------- config ---------- */
-  const SUPABASE_URL      = '';   // e.g. https://xxxxxxxx.supabase.co
-  const SUPABASE_ANON_KEY = '';   // project anon/public key
   const REDIRECT_AFTER_LOGIN = 'dashboard.html';
 
   const form      = document.getElementById('loginForm');
@@ -34,12 +32,7 @@
   if (!form) return;
 
   /* ---------- Supabase client, when it exists ---------- */
-  let supabase = null;
-  if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase){
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { persistSession: true, autoRefreshToken: true }
-    });
-  }
+  const supabase = window.aeroClient ? window.aeroClient() : null;
 
   function setStatus(msg, state){
     statusEl.textContent = msg || '';

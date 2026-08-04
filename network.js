@@ -1,44 +1,23 @@
 /* ===========================================================
    AeroBMSCE — Join the Network
 
-   Alumni submissions land in a Google Sheet, but the form stays on the
-   site. We POST straight to the Google Form endpoint instead of sending
-   people to a Google-branded page, so responses arrive exactly where
-   Mehak expects them and nobody has to leave.
+   Alumni sign-ups are written straight into the Supabase `alumni`
+   table. RLS lets anyone insert but nothing read back, so a stranger
+   can add themselves and cannot enumerate the directory.
 
-   ---- WIRING IT UP -----------------------------------------------------
-   1. Build the Google Form with these questions, in any order:
-        Full name · Graduation year · Email · Current role ·
-        Company/institution · Team · How to help · LinkedIn
-   2. Open the live form, right-click → View Page Source, and search for
-      "entry." — each question has an id like entry.1234567890.
-   3. Paste the form id and those entry ids into FORM below.
+   Rows land with approved = false. A Core admin flips that flag in the
+   Supabase dashboard before an entry appears anywhere public.
 
-   The request is sent no-cors, so the browser will not let us read the
-   response. That is expected: Google returns an opaque result and the
-   submission still lands. We treat a completed request as success, which
-   is the standard trade-off for this approach.
+   Unlike the Google Forms approach this replaced, the write is a real
+   request we can read the result of — so a failure is reported rather
+   than silently swallowed.
 =========================================================== */
 
 (function(){
   "use strict";
 
-  const FORM = {
-    // https://docs.google.com/forms/d/e/<THIS PART>/viewform
-    id: '',
-    fields: {
-      name:  'entry.0000000001',
-      year:  'entry.0000000002',
-      email: 'entry.0000000003',
-      role:  'entry.0000000004',
-      org:   'entry.0000000005',
-      team:  'entry.0000000006',
-      help:  'entry.0000000007',
-      link:  'entry.0000000008'
-    }
-  };
-
   const FALLBACK_EMAIL = 'aerobmsce@bmsce.ac.in';
+  const supabase = window.aeroClient ? window.aeroClient() : null;
 
   const modal     = document.getElementById('networkModal');
   const openBtn   = document.getElementById('networkOpen');
@@ -117,12 +96,10 @@
     submitBtn.textContent = 'Sending…';
     setStatus('Adding you to the directory…');
 
-    // No Google Form configured yet — fall back to a prefilled email so
-    // the button is never a dead end.
-    if (!FORM.id){
-      const body = Object.entries(data)
-        .map(([k, v]) => k + ': ' + v)
-        .join('\n');
+    // Supabase unavailable (offline, blocked CDN) — fall back to email
+    // so the button is never a dead end.
+    if (!supabase){
+      const body = Object.entries(data).map(([k, v]) => k + ': ' + v).join('\n');
       window.location.href = 'mailto:' + FALLBACK_EMAIL +
         '?subject=' + encodeURIComponent('AeroBMSCE alumni network') +
         '&body=' + encodeURIComponent(body);
@@ -133,19 +110,31 @@
     }
 
     try {
-      const payload = new FormData();
-      Object.entries(FORM.fields).forEach(([key, entryId]) => {
-        if (data[key]) payload.append(entryId, data[key]);
+      const year = parseInt(data.year, 10);
+      const { error } = await supabase.from('alumni').insert({
+        full_name:    data.name.trim(),
+        email:        data.email.trim().toLowerCase(),
+        grad_year:    Number.isFinite(year) ? year : null,
+        role_title:   data.role?.trim()  || null,
+        organisation: data.org?.trim()   || null,
+        team:         data.team          || null,
+        help_with:    data.help          || null,
+        linkedin:     data.link?.trim()  || null
       });
 
-      await fetch(
-        `https://docs.google.com/forms/d/e/${FORM.id}/formResponse`,
-        { method: 'POST', mode: 'no-cors', body: payload }
-      );
+      if (error){
+        // 23505 is a unique violation — they are already on the list
+        if (error.code === '23505'){
+          setStatus("You're already on the list. We'll be in touch.", 'ok');
+          setTimeout(closeModal, 2200);
+          return;
+        }
+        throw error;
+      }
 
       form.reset();
       setStatus("You're in. We'll be in touch before the next season.", 'ok');
-      setTimeout(closeModal, 2200);
+      setTimeout(closeModal, 2400);
     } catch (err) {
       setStatus('That did not send. Email us at ' + FALLBACK_EMAIL + '.', 'error');
     } finally {
