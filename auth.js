@@ -1,18 +1,10 @@
 /* ===========================================================
    AeroBMSCE — team login
 
-   Supabase is not wired up yet. Everything below is written so that
-   connecting it is a two-step change:
+   Connected to Supabase. Project settings live in supabase-client.js.
 
-     1. Add the Supabase script + your project keys in login.html:
-          <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        then set SUPABASE_URL and SUPABASE_ANON_KEY in the config block.
-     2. Nothing else — signIn() below already calls the real client when
-        it detects one, and falls back to a local stub when it doesn't.
-
-   The anon key is safe in client code *only* if Row Level Security is
-   switched on for every table. Turn RLS on before going live, and never
-   put the service_role key anywhere near the browser.
+   The client is fetched at submit time rather than at page load, so a
+   slow CDN cannot leave the form permanently reporting "no backend".
 =========================================================== */
 
 (function(){
@@ -31,8 +23,11 @@
 
   if (!form) return;
 
-  /* ---------- Supabase client, when it exists ---------- */
-  const supabase = window.aeroClient ? window.aeroClient() : null;
+  /* ---------- Supabase client, resolved when needed ---------- */
+  async function getClient(){
+    if (!window.aeroClientAsync) throw new Error('CLIENT_SCRIPT_MISSING');
+    return window.aeroClientAsync();
+  }
 
   function setStatus(msg, state){
     statusEl.textContent = msg || '';
@@ -80,15 +75,10 @@
 
   /* ---------- sign in ---------- */
   async function signIn(email, password){
-    if (supabase){
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw new Error(error.message);
-      return data;
-    }
-
-    // No backend yet — simulate the round trip so the UI can be reviewed.
-    await new Promise(r => setTimeout(r, 900));
-    throw new Error('BACKEND_NOT_CONNECTED');
+    const supabase = await getClient();
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw new Error(error.message);
+    return data;
   }
 
   form.addEventListener('submit', async (e) => {
@@ -104,10 +94,18 @@
       setStatus('Authenticated. Opening your dashboard…', 'ok');
       window.location.href = REDIRECT_AFTER_LOGIN;
     } catch (err) {
-      if (err.message === 'BACKEND_NOT_CONNECTED'){
-        setStatus('Sign-in is not live yet — Supabase still needs connecting.', 'warn');
+      const m = err.message || '';
+      if (m === 'SDK_BLOCKED'){
+        setStatus('Could not reach the authentication service. Check your connection, or disable any ad blocker for this site.', 'error');
+      } else if (m === 'CLIENT_SCRIPT_MISSING'){
+        setStatus('Page loaded incompletely. Hard-refresh with Cmd+Shift+R.', 'error');
+      } else if (/invalid login credentials/i.test(m)){
+        setStatus('That email and password combination was not recognised.', 'error');
+        passEl.select();
+      } else if (/email not confirmed/i.test(m)){
+        setStatus('This account has not been confirmed yet. Ask a Core admin.', 'warn');
       } else {
-        setStatus(err.message || 'Those credentials were not accepted.', 'error');
+        setStatus(m || 'Those credentials were not accepted.', 'error');
         passEl.select();
       }
     } finally {
@@ -116,11 +114,15 @@
   });
 
   /* ---------- redirect if a session already exists ---------- */
-  if (supabase){
-    supabase.auth.getSession().then(({ data }) => {
+  (async () => {
+    try {
+      const supabase = await getClient();
+      const { data } = await supabase.auth.getSession();
       if (data.session) window.location.href = REDIRECT_AFTER_LOGIN;
-    });
-  }
+    } catch {
+      /* no session check possible offline — the form still works */
+    }
+  })();
 
   /* ---------- altimeter rail reacts to form completeness ---------- */
   const railFill  = document.getElementById('railFill');

@@ -17,7 +17,10 @@
   "use strict";
 
   const FALLBACK_EMAIL = 'aerobmsce@bmsce.ac.in';
-  const supabase = window.aeroClient ? window.aeroClient() : null;
+  async function getClient(){
+    if (!window.aeroClientAsync) return null;
+    try { return await window.aeroClientAsync(); } catch { return null; }
+  }
 
   const modal     = document.getElementById('networkModal');
   const openBtn   = document.getElementById('networkOpen');
@@ -98,6 +101,7 @@
 
     // Supabase unavailable (offline, blocked CDN) — fall back to email
     // so the button is never a dead end.
+    const supabase = await getClient();
     if (!supabase){
       const body = Object.entries(data).map(([k, v]) => k + ': ' + v).join('\n');
       window.location.href = 'mailto:' + FALLBACK_EMAIL +
