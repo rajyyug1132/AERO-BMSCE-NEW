@@ -175,6 +175,46 @@
     </div>
   </div>
 
+  <!-- ============ ALUMNI NETWORK ============ -->
+  <div class="section-head reveal" style="margin-top:110px">
+    <span class="section-tag">The network</span>
+    <h2 class="section-title">Sixteen years of <span class="grad-text">alumni.</span></h2>
+    <p class="section-desc">Members who built airframes at Propel Lab-3 now work in aerospace, defence, UAV startups and higher study across India and abroad. They mentor current teams, open doors and come back for launches.</p>
+  </div>
+
+  <!--
+    ALUMNI CARDS
+    Replace the roster below with real people. Each entry needs a name,
+    what they do now, and the season they were part of. Photographs go in
+    assets/alumni/ at roughly 400x400, saved as WebP.
+
+      <a class="alum-card reveal" href="#">
+        <span class="alum-photo"><img src="assets/alumni/name.webp" alt="" loading="lazy"></span>
+        <span class="alum-name">Full Name</span>
+        <span class="alum-role">Role · Company</span>
+        <span class="alum-era">Team · Years</span>
+      </a>
+
+    Until real profiles land, the network band below carries the section
+    on its own rather than showing invented names.
+  -->
+
+  <div class="network-band reveal">
+    <div class="network-stats">
+      <div class="net-stat"><span class="net-num">16</span><span class="net-label">Seasons of members</span></div>
+      <div class="net-stat"><span class="net-num">10+</span><span class="net-label">Departments represented</span></div>
+      <div class="net-stat"><span class="net-num">4</span><span class="net-label">Competition teams</span></div>
+    </div>
+
+    <div class="network-cta">
+      <h3>Flew with us? Come back.</h3>
+      <p>Alumni and mentors — add yourself to the directory. We use it for mentorship, referrals and reunion invites, nothing else.</p>
+      <button type="button" class="btn btn-primary btn-lg" id="networkOpen">
+        Join the Network <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
   <div class="cta-band reveal">
     <div>
       <h3>Want to fly with the squad?</h3>
@@ -185,6 +225,80 @@
 </section>
 
 </main>
+
+<!-- ============ JOIN THE NETWORK ============ -->
+<div class="modal" id="networkModal" role="dialog" aria-modal="true"
+     aria-labelledby="networkTitle" hidden>
+  <div class="modal-panel">
+    <button type="button" class="modal-close" id="networkClose" aria-label="Close">&times;</button>
+
+    <span class="section-tag">Alumni &amp; mentors</span>
+    <h2 class="modal-title" id="networkTitle">Join the Network</h2>
+    <p class="modal-sub">Two minutes. We only use this for mentorship, referrals and reunion invites.</p>
+
+    <form id="networkForm" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="netName">Full name</label>
+          <input id="netName" name="name" type="text" required placeholder="Your name">
+        </div>
+        <div class="form-field">
+          <label for="netYear">Graduation year</label>
+          <input id="netYear" name="year" type="text" inputmode="numeric" placeholder="2021">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="netEmail">Email</label>
+        <input id="netEmail" name="email" type="email" required placeholder="you@example.com">
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="netRole">Current role</label>
+          <input id="netRole" name="role" type="text" placeholder="Design Engineer">
+        </div>
+        <div class="form-field">
+          <label for="netOrg">Company / institution</label>
+          <input id="netOrg" name="org" type="text" placeholder="Where you are now">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="netTeam">Which team were you on?</label>
+        <select id="netTeam" name="team">
+          <option>Blue Impulse</option>
+          <option>Yaksha</option>
+          <option>Flying Phantoms</option>
+          <option>Team Vectors</option>
+          <option>Core / Operations</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="netHelp">How would you like to help?</label>
+        <select id="netHelp" name="help">
+          <option>Mentoring current teams</option>
+          <option>Referrals &amp; internships</option>
+          <option>Technical review</option>
+          <option>Sponsorship introductions</option>
+          <option>Just keep me in the loop</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="netLink">LinkedIn (optional)</label>
+        <input id="netLink" name="link" type="url" placeholder="https://linkedin.com/in/…">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="networkSubmit">
+        Add me to the directory <span class="btn-arrow">→</span>
+      </button>
+      <p class="form-status" id="networkStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
@@ -232,5 +346,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="network.js"></script>
 </body>
 </html>

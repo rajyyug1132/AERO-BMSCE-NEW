@@ -1604,3 +1604,97 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .prospectus-download{ padding:22px; }
   .pd-action{ width:100%; justify-content:center; }
 }
+
+/* ===========================================================
+   ALUMNI NETWORK
+=========================================================== */
+.network-band{
+  display:grid; grid-template-columns:1fr 1.1fr; gap:48px; align-items:center;
+  padding:40px 42px; border-radius:20px;
+  border:1px solid var(--border);
+  background:linear-gradient(125deg, rgba(244,196,48,0.08), rgba(154,51,35,0.06) 55%, rgba(235,222,198,0.02));
+}
+.network-stats{ display:flex; flex-direction:column; gap:24px; }
+.net-stat{ display:flex; flex-direction:column; gap:4px; }
+.net-num{
+  font-family:var(--font-head); font-weight:700; font-size:clamp(1.9rem,3vw,2.6rem);
+  background:linear-gradient(120deg, var(--white), var(--cyan-soft));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.net-label{ font-size:13px; color:var(--slate); }
+.network-cta h3{ font-family:var(--font-head); font-size:21px; margin-bottom:10px; }
+.network-cta p{ font-size:14px; color:var(--slate); font-weight:300; margin-bottom:22px; max-width:420px; }
+
+/* alumni cards — used once real profiles are added */
+.alum-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:18px; margin-bottom:44px; }
+.alum-card{
+  display:flex; flex-direction:column; gap:8px;
+  padding:18px; border-radius:16px;
+  border:1px solid var(--border); background:var(--glass);
+  transition:transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s;
+}
+.alum-card:hover{
+  transform:translateY(-4px); border-color:var(--border-hover);
+  box-shadow:0 18px 44px -22px rgba(244,196,48,0.3);
+}
+.alum-photo{
+  display:block; width:100%; aspect-ratio:1; border-radius:12px;
+  overflow:hidden; background:linear-gradient(140deg, var(--bg-2), var(--bg-1));
+  margin-bottom:4px;
+}
+.alum-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.alum-name{ font-weight:600; font-size:14.5px; color:var(--white); }
+.alum-role{ font-size:12.5px; color:var(--slate); }
+.alum-era{ font-family:var(--font-mono); font-size:10.5px; color:var(--slate-dim); letter-spacing:0.06em; }
+
+/* ===========================================================
+   MODAL
+=========================================================== */
+.modal{
+  position:fixed; inset:0; z-index:200;
+  display:flex; align-items:center; justify-content:center;
+  padding:32px 20px;
+  background:rgba(6,4,3,0.9); backdrop-filter:blur(12px);
+  opacity:0; transition:opacity 0.3s var(--ease);
+  overflow-y:auto;
+}
+.modal.open{ opacity:1; }
+.modal[hidden]{ display:none; }
+.modal-panel{
+  position:relative; width:100%; max-width:600px;
+  padding:40px; border-radius:20px;
+  border:1px solid var(--border); background:var(--bg-1);
+  transform:translateY(16px) scale(0.98);
+  transition:transform 0.35s var(--ease);
+  margin:auto;
+}
+.modal.open .modal-panel{ transform:translateY(0) scale(1); }
+.modal-close{
+  position:absolute; top:18px; right:18px;
+  width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--border); background:var(--glass);
+  color:var(--white); font-size:20px; line-height:1;
+  transition:border-color 0.3s, background 0.3s, color 0.3s;
+}
+.modal-close:hover{ border-color:var(--border-hover); color:var(--cyan); }
+.modal-title{
+  font-family:var(--font-head); font-weight:700;
+  font-size:clamp(1.6rem, 3vw, 2.1rem); margin-bottom:8px;
+}
+.modal-sub{ font-size:14px; color:var(--slate); font-weight:300; margin-bottom:28px; }
+.modal-panel .form-field{ margin-bottom:16px; }
+.modal-panel .form-field label{
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--silver);
+}
+.modal-panel button[type="submit"]{ margin-top:10px; }
+
+@media (max-width: 860px){
+  .network-band{ grid-template-columns:1fr; gap:32px; padding:32px 26px; }
+  .network-stats{ flex-direction:row; flex-wrap:wrap; gap:28px; }
+}
+@media (max-width: 600px){
+  .modal-panel{ padding:30px 22px; }
+  .modal{ padding:16px 12px; }
+}

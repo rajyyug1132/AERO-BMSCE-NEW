@@ -89,6 +89,22 @@ const SUPABASE_ANON_KEY = 'your-anon-key';
 
 Two things before this goes live: switch on Row Level Security for every table — the anon key is public by design and RLS is what actually protects your data — and never put the `service_role` key in client code. Accounts are created by an admin in the Supabase dashboard; there is deliberately no public signup.
 
+## Alumni network
+
+The Squad page carries a network band and a **Join the Network** button that opens an on-site modal rather than sending people to a Google Form. Responses still land in a Google Sheet — `network.js` POSTs straight to the Google Form endpoint — so the workflow is unchanged but nobody leaves the site.
+
+To connect it:
+
+1. Build the Google Form with these questions: full name, graduation year, email, current role, company, team, how they want to help, LinkedIn.
+2. Open the live form, View Page Source, search for `entry.` — each question has an id like `entry.1234567890`.
+3. Paste the form id (the part between `/d/e/` and `/viewform`) and the entry ids into the `FORM` block at the top of `network.js`.
+
+Until that is filled in the button still works — it opens a prefilled email to `aerobmsce@bmsce.ac.in` so it is never a dead end.
+
+One caveat worth knowing: the POST is sent `no-cors`, so the browser cannot read Google's response. Submissions land, but we cannot verify per-submission success — we treat a completed request as success. That is the standard trade-off for this approach. If you want confirmed delivery later, swap the endpoint for Formspree or a Supabase table.
+
+**Alumni cards are not populated.** Rather than invent names, `team.html` has a commented template above the network band. Send me the real roster — name, current role, company, team and years — and photographs for `assets/alumni/`, and I will fill the grid.
+
 ## Partnership prospectus
 
 `assets/docs/AeroBMSCE-Partnership-Prospectus.pdf` is the 7-page collaboration deck, recompressed from 6.9 MB to 1.7 MB with Ghostscript at 144 dpi — text layer intact.
@@ -131,3 +147,5 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 - Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
 - Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
+- Populate the alumni grid on `team.html` once the roster and photographs arrive
+- Fill the `FORM` block in `network.js` with the real Google Form ids
