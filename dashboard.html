@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Deck — AeroBMSCE</title>
+<meta name="description" content="AeroBMSCE team progress tracking.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0807">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="assets/logos/aerobmsce-wordmark.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dash-body">
+
+<!-- Hidden until the session is confirmed, so a signed-out visitor never
+     sees the shell of a page they have no access to. -->
+<div class="dash-gate" id="dashGate">
+  <div class="dash-gate-inner">
+    <span class="dash-spinner" aria-hidden="true"></span>
+    <p class="mono">Verifying session…</p>
+  </div>
+</div>
+
+<div class="dash-shell" id="dashShell" hidden>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="dash-bar">
+    <a href="index.html" class="dash-brand">
+      <img src="assets/logos/aerobmsce-wordmark.webp" alt="AeroBMSCE" width="900" height="218">
+    </a>
+
+    <span class="dash-tag">Flight Deck</span>
+
+    <div class="dash-user">
+      <span class="dash-whoami">
+        <span class="dash-name" id="dashName">—</span>
+        <span class="dash-role" id="dashRole">—</span>
+      </span>
+      <button type="button" class="btn btn-outline" id="signOut">Sign out</button>
+    </div>
+  </header>
+
+  <main class="dash-main" id="top">
+
+    <!-- ============ HEADLINE ============ -->
+    <div class="dash-head">
+      <span class="section-tag">Progress log</span>
+      <h1 class="dash-title">Welcome back, <span class="grad-text" id="dashFirst">—</span></h1>
+      <p class="dash-sub">Log what moved, flag what's stuck, attach the proof.</p>
+    </div>
+
+    <!-- ============ STATS ============ -->
+    <div class="dash-stats" id="dashStats">
+      <div class="dash-stat"><span class="ds-num" id="statUpdates">—</span><span class="ds-label">Total updates</span></div>
+      <div class="dash-stat"><span class="ds-num" id="statWins">—</span><span class="ds-label">Wins this month</span></div>
+      <div class="dash-stat dash-stat--alert"><span class="ds-num" id="statBlockers">—</span><span class="ds-label">Open blockers</span></div>
+      <div class="dash-stat"><span class="ds-num" id="statMembers">—</span><span class="ds-label">Members</span></div>
+    </div>
+
+    <div class="dash-cols">
+
+      <!-- ============ COMPOSER ============ -->
+      <section class="dash-panel" aria-labelledby="composeTitle">
+        <h2 class="dash-panel-title" id="composeTitle">Post an update</h2>
+
+        <form id="updateForm" novalidate>
+          <div class="form-field">
+            <label for="upKind">Type</label>
+            <select id="upKind" name="kind">
+              <option value="progress">Progress — something moved</option>
+              <option value="win">Win — worth celebrating</option>
+              <option value="blocker">Blocker — needs unsticking</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="upWorkstream">Workstream</label>
+            <select id="upWorkstream" name="workstream">
+              <option>Airframe</option>
+              <option>Avionics &amp; Systems</option>
+              <option>Aerodynamics</option>
+              <option>Operations</option>
+              <option>Competition prep</option>
+              <option>Sponsorship</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="upTitle">What happened</label>
+            <input id="upTitle" name="title" type="text" required maxlength="160"
+                   placeholder="Wing jig finished, ribs cut for section 2">
+            <span class="field-count"><span id="titleCount">0</span>/160</span>
+          </div>
+
+          <div class="form-field">
+            <label for="upDetail">Detail <span class="opt">optional</span></label>
+            <textarea id="upDetail" name="detail" rows="3"
+                      placeholder="Context, numbers, what you need from someone else"></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="upProof">Proof link <span class="opt">optional</span></label>
+            <input id="upProof" name="proof_url" type="url"
+                   placeholder="https://drive.google.com/…">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="updateSubmit">
+            Post update <span class="btn-arrow">→</span>
+          </button>
+          <p class="form-status" id="updateStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- ============ FEED ============ -->
+      <section class="dash-panel dash-panel--feed" aria-labelledby="feedTitle">
+        <div class="feed-head">
+          <h2 class="dash-panel-title" id="feedTitle">Recent activity</h2>
+          <div class="feed-filters" role="group" aria-label="Filter updates">
+            <button type="button" class="feed-filter is-active" data-filter="all">All</button>
+            <button type="button" class="feed-filter" data-filter="win">Wins</button>
+            <button type="button" class="feed-filter" data-filter="blocker">Blockers</button>
+            <button type="button" class="feed-filter" data-filter="mine">Mine</button>
+          </div>
+        </div>
+
+        <div class="feed" id="feed" aria-live="polite">
+          <p class="feed-empty mono">Loading…</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ ADMIN: ALUMNI QUEUE ============ -->
+    <section class="dash-panel dash-admin" id="adminPanel" hidden aria-labelledby="adminTitle">
+      <div class="feed-head">
+        <h2 class="dash-panel-title" id="adminTitle">
+          Alumni awaiting review
+          <span class="admin-count" id="pendingCount">0</span>
+        </h2>
+        <span class="admin-note mono">Admin only — approving publishes them to the site</span>
+      </div>
+      <div class="admin-queue" id="adminQueue"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

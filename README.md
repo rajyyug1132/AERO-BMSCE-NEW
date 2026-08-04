@@ -22,8 +22,9 @@ python3 -m http.server 8000
 | `join.html` | Divisions, recruitment process, application form |
 | `contact.html` | Partnership contact and enquiry form |
 | `login.html` | Team sign in (invite-only, `noindex`) |
+| `dashboard.html` | Flight Deck — team progress log (`noindex`) |
 
-All eight pages share `style.css`, `script.js`, and the assets in `assets/`.
+All nine pages share `style.css`, `script.js`, and the assets in `assets/`.
 
 ## The hero aircraft
 
@@ -111,7 +112,32 @@ Passwords are never generated or stored in this repo, and should not be shared o
 
 Auth lives in `auth.js` and is connected to Supabase. Sign-in calls `signInWithPassword`, and an existing session redirects straight past the form.
 
-It currently redirects to `dashboard.html`, **which does not exist yet** — so a successful sign-in lands on a 404. Building that page is the next job.
+Successful sign-in lands on `dashboard.html`.
+
+## Flight Deck
+
+`dashboard.html` is what the login page promises — a progress log for the team.
+
+The page renders behind a gate that only lifts once a session is confirmed, and redirects to the login otherwise. Treat that as courtesy, not security: the file is public and anyone can read it. What actually protects the data is RLS — without a valid session the queries return nothing.
+
+**Post an update** — pick a type (progress, win, blocker), a workstream, say what happened, optionally add detail and a proof link. Proof URLs are checked both in the browser and by a database constraint.
+
+**Feed** — the last 60 updates from everyone, filterable by wins, blockers or your own. You can resolve your own blockers and delete your own entries; admins can do either to anything.
+
+**Stats** — totals, wins this month, open blockers and headcount, all from one `dashboard_stats()` call rather than four round trips.
+
+**Admin panel** — visible only to admins. Alumni sign-ups queue here for approval; approving publishes them, rejecting deletes them. The panel is hidden by JavaScript for convenience, but the policies are what stop a member acting as an admin.
+
+### Verified
+
+Tested by impersonating both roles in SQL:
+
+- `anon` reads 0 updates and cannot insert
+- a signed-in member can post as themselves and read the feed
+- posting under another member's identity is refused by the RLS `WITH CHECK`
+- `is_admin()` correctly identifies the bootstrap admin
+
+Worth re-running these after any policy change.
 
 ## Alumni network
 
@@ -161,9 +187,9 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 ## Still to do
 
 - Replace the placeholder squad names in `team.html` with the real roster and photographs
-- Build `dashboard.html` — sign-in currently redirects to a page that does not exist
 - Set `FORM_ENDPOINT` in `script.js` for the partner and application forms (Supabase could take these too)
 - Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
 - Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
+- Turn on leaked-password protection: Supabase → Authentication → Policies. It checks new passwords against HaveIBeenPwned and is off by default.
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
 - Populate the alumni grid on `team.html` once the roster and photographs arrive
