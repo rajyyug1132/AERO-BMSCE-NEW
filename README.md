@@ -118,8 +118,6 @@ Moderation is manual by design. Rows arrive unapproved; an admin reviews them in
 
 **Alumni cards are not populated.** Rather than invent names, `team.html` has a commented template above the network band. Send me the real roster — name, current role, company, team and years — and photographs for `assets/alumni/`, and I will fill the grid.
 
-**Alumni cards are not populated.** Rather than invent names, `team.html` has a commented template above the network band. Send me the real roster — name, current role, company, team and years — and photographs for `assets/alumni/`, and I will fill the grid.
-
 ## Partnership prospectus
 
 `assets/docs/AeroBMSCE-Partnership-Prospectus.pdf` is the 7-page collaboration deck, recompressed from 6.9 MB to 1.7 MB with Ghostscript at 144 dpi — text layer intact.
