@@ -6,6 +6,19 @@
    authentic to mission control.
 =========================================================== */
 
+/* Orbitron — self-hosted variable face, subset to Latin (12 KB).
+   Self-hosted rather than Google-served: it is the one font that must
+   land before the preloader paints, and a third-party round trip is the
+   wrong thing to gamble that on. */
+@font-face{
+  font-family:'Orbitron';
+  src:url('assets/fonts/Orbitron-var.woff2') format('woff2-variations'),
+      url('assets/fonts/Orbitron-var.woff2') format('woff2');
+  font-weight:400 900;
+  font-style:normal;
+  font-display:swap;
+}
+
 :root{
   --bg-0: #0A0807;
   --bg-1: #120E0C;
@@ -25,6 +38,15 @@
   --border-hover-brick: rgba(196, 80, 47, 0.5);
   --glass: rgba(235, 222, 198, 0.04);
   --glass-hover: rgba(235, 222, 198, 0.08);
+  /* Four roles, each with a job:
+       display — Orbitron. Instrument-panel voice. UPPERCASE ONLY, short
+                 strings only. Its lowercase is weak and its digits are
+                 proportional, so it never touches body copy or a ticking
+                 number. See the note on .cd-num.
+       head    — Space Grotesk. Headlines and sentence-case titles.
+       body    — Inter. Anything a person actually reads.
+       mono    — JetBrains Mono. Tabular data, specs, telemetry. */
+  --font-display: 'Orbitron', 'Space Grotesk', sans-serif;
   --font-head: 'Space Grotesk', 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -194,8 +216,9 @@ main, header, footer{ position:relative; z-index:2; }
 
 .btn{
   display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; font-weight:600; letter-spacing:0.02em;
-  padding:10px 18px; border-radius:999px;
+  font-family:var(--font-display); font-weight:600;
+  font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+  padding:11px 20px; border-radius:999px;
   transition:all 0.3s var(--ease);
   white-space:nowrap;
 }
@@ -249,9 +272,12 @@ main, header, footer{ position:relative; z-index:2; }
 }
 .mobile-overlay a{
   position:relative; display:block;
-  font-family:var(--font-head); font-weight:700;
-  font-size:clamp(2rem, 6vw, 4.4rem); line-height:1.12;
-  letter-spacing:-0.02em; color:var(--silver);
+  font-family:var(--font-display); font-weight:700;
+  text-transform:uppercase;
+  /* smaller ceiling than the Space Grotesk it replaced — Orbitron runs
+     roughly 25% wider per character, so the old 4.4rem overflowed */
+  font-size:clamp(1.6rem, 4.6vw, 3.3rem); line-height:1.18;
+  letter-spacing:0.02em; color:var(--silver);
   padding:6px 0;
   opacity:0; transform:translateY(24px);
   transition:color 0.35s var(--ease), opacity 0.5s var(--ease), transform 0.5s var(--ease);
@@ -369,7 +395,8 @@ main, header, footer{ position:relative; z-index:2; }
 .hero-content{ text-align:left; z-index:2; }
 
 .eyebrow{
-  font-family:var(--font-mono); font-size:12px; letter-spacing:0.12em;
+  font-family:var(--font-display); font-weight:500;
+  font-size:11px; letter-spacing:0.2em;
   color:var(--cyan); text-transform:uppercase; margin-bottom:20px;
 }
 
@@ -439,6 +466,10 @@ main, header, footer{ position:relative; z-index:2; }
 }
 .countdown{ display:flex; align-items:baseline; gap:10px; }
 .cd-block{ display:flex; flex-direction:column; align-items:center; gap:4px; min-width:56px; }
+/* Deliberately NOT Orbitron. Its digits are proportional — "1" is 391
+   units against ~830 for the rest — so a ticking clock would visibly
+   re-centre every time a 1 enters or leaves. Space Grotesk has real
+   tabular figures, which is what a clock needs. */
 .cd-num{
   font-family:var(--font-head); font-weight:700; font-size:clamp(1.8rem,5vw,3rem);
   color:var(--white); font-variant-numeric:tabular-nums;
@@ -458,7 +489,7 @@ main, header, footer{ position:relative; z-index:2; }
 .stat-card:hover{ background:var(--bg-2); }
 .stat-idx{ font-family:var(--font-mono); font-size:11px; color:var(--slate-dim); }
 .stat-num, .stat-num-text{
-  font-family:var(--font-head); font-weight:700;
+  font-family:var(--font-display); font-weight:700; letter-spacing:0.01em;
   font-size:clamp(2rem,4vw,2.8rem);
   background:linear-gradient(120deg, var(--white), var(--cyan-soft));
   -webkit-background-clip:text; background-clip:text; color:transparent;
@@ -493,7 +524,8 @@ main, header, footer{ position:relative; z-index:2; }
 .section--top-tight{ padding-top:16px; }
 .section-head{ max-width:720px; margin-bottom:64px; }
 .section-tag{
-  font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em;
+  font-family:var(--font-display); font-weight:500;
+  font-size:11px; letter-spacing:0.2em;
   color:var(--cyan); text-transform:uppercase; display:block; margin-bottom:16px;
 }
 .section-title{
@@ -735,7 +767,7 @@ main, header, footer{ position:relative; z-index:2; }
   margin-bottom:22px;
 }
 .fleet-mark--empty span{
-  font-family:var(--font-head); font-weight:700; font-size:24px; color:var(--cyan);
+  font-family:var(--font-display); font-weight:700; font-size:21px; color:var(--cyan);
 }
 .fleet-card h3{ font-family:var(--font-head); font-size:19px; }
 .fleet-card p{ font-size:13.5px; color:var(--slate); font-weight:300; }
@@ -1078,7 +1110,7 @@ main, header, footer{ position:relative; z-index:2; }
 }
 .process-step:hover{ transform:translateY(-4px); border-color:var(--border-hover); }
 .process-num{
-  font-family:var(--font-head); font-weight:700; font-size:28px;
+  font-family:var(--font-display); font-weight:800; font-size:25px;
   color:transparent; -webkit-text-stroke:1px var(--cyan);
   display:block; margin-bottom:14px;
 }
@@ -1923,9 +1955,9 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 }
 .rank{
   flex:0 0 auto;
-  min-width:38px;
-  font-family:var(--font-head); font-weight:700; font-size:15px;
-  letter-spacing:-0.01em;
+  min-width:42px;
+  font-family:var(--font-display); font-weight:700; font-size:14px;
+  letter-spacing:0.01em;
   color:var(--cyan);
   font-variant-numeric:tabular-nums;
 }
@@ -2204,12 +2236,14 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 
 .pre-status{
   position:relative;
-  font-family:var(--font-mono); font-size:11px; letter-spacing:0.22em;
+  font-family:var(--font-display); font-weight:500;
+  font-size:10.5px; letter-spacing:0.28em;
   text-transform:uppercase; color:var(--slate);
 }
 .pre-status b{ color:var(--cyan); font-weight:500; }
 .pre-pct{
-  font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em;
+  font-family:var(--font-display); font-weight:500;
+  font-size:10px; letter-spacing:0.14em;
   color:var(--slate-dim); font-variant-numeric:tabular-nums;
 }
 
