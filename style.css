@@ -1098,14 +1098,17 @@ main, header, footer{ position:relative; z-index:2; }
 }
 .media-cap-label{
   font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.14em;
-  text-transform:uppercase; color:rgba(245,235,218,0.92);
+  text-transform:uppercase; color:var(--cyan);
   line-height:1.35;
-  text-shadow:0 1px 3px rgba(0,0,0,0.6);
+  /* the scrim carries it over a dark photo, but a bright sky or a white
+     pit tent sits right under some of these captions — the shadow is
+     doing real work, not decoration */
+  text-shadow:0 1px 4px rgba(0,0,0,0.85);
 }
 .media-cap-id{
   font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.1em;
-  color:rgba(244,196,48,0.72); flex:0 0 auto;
-  text-shadow:0 1px 3px rgba(0,0,0,0.6);
+  color:rgba(244,196,48,0.55); flex:0 0 auto;
+  text-shadow:0 1px 4px rgba(0,0,0,0.85);
   transition:color 0.35s var(--ease);
 }
 .media-tile:hover .media-cap-id{ color:var(--cyan); }
