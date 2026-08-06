@@ -73,6 +73,25 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 
 To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
 
+## Competition team attribution
+
+Each result in the home flight log carries a chip naming the team that took it. The mapping comes from the prospectus team descriptions, not from guesswork:
+
+| Team | Remit |
+| --- | --- |
+| Yaksha | International competitions |
+| Blue Impulse | Aeromodelling |
+| Flying Phantoms | Drone development |
+| Team Vectors | Drone racing |
+
+**Three results have no chip because the deck does not say which team took them** — both SAE Aerothon placings (2025, 2022) and AI-VTOL at Techfest IIT Bombay. Add a chip with:
+
+```html
+<span class="li-teams"><span class="li-team">Blue Impulse</span></span>
+```
+
+immediately before the closing `</li>`. A result can carry more than one chip if two teams collaborated.
+
 ## Squad roster
 
 The Squad page builds itself from the `ROSTER` array at the top of `squad.js`. Edit there, never in `team.html` — the division tallies and the headcount are derived from the array, so they cannot drift out of sync the way hand-typed numbers did.

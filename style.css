@@ -2103,3 +2103,19 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .sq-modal-photo{ min-height:200px; aspect-ratio:16/9; }
   .sq-modal-text{ padding:26px 22px; }
 }
+
+/* ---------- which team took the result ---------- */
+.li-teams{
+  display:inline-flex; flex-wrap:wrap; gap:5px;
+  margin-left:2px;
+}
+.li-team{
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:3px 9px; border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--slate);
+  background:rgba(235,222,198,0.03);
+  transition:color 0.3s, border-color 0.3s;
+}
+.timeline-card:hover .li-team{ color:var(--silver); border-color:rgba(235,222,198,0.2); }
