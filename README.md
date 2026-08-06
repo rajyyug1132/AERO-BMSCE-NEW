@@ -73,6 +73,27 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 
 To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
 
+## Squad roster
+
+The Squad page builds itself from the `ROSTER` array at the top of `squad.js`. Edit there, never in `team.html` — the division tallies and the headcount are derived from the array, so they cannot drift out of sync the way hand-typed numbers did.
+
+Only `name`, `role` and `division` are required. Everything else is optional and the card omits what is missing rather than showing an empty slot:
+
+```js
+{
+  name: 'Full Name', role: 'Structures Lead', division: 'Airframe',
+  lead: true,                          // gold treatment
+  photo: 'assets/squad/name.webp',     // square, ~600px
+  skills: ['Composites', 'CAD'],       // first 3 shown
+  bio: 'One or two sentences.',        // presence makes the card open a panel
+  links: { linkedin: 'https://…', github: 'https://…', email: 'x@y.z' }
+}
+```
+
+Without a photo the card shows an initials tile, which is why the page looks finished today. Without a bio the card is not clickable, so no member opens an empty panel. Add a `bio` and the card becomes keyboard-focusable and opens a detail view with photo, role, skills and links.
+
+Photographs go in `assets/squad/`, square, roughly 600x600, WebP.
+
 ## R&D card imagery
 
 `assets/research/` holds one 16:10 crop per research track, cut from the competition photography rather than sourced separately — 900px wide, WebP, 25–58 KB each, 228 KB for all six.
@@ -202,11 +223,11 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 
 ## Still to do
 
-- Replace the placeholder squad names in `team.html` with the real roster and photographs
 - Set `FORM_ENDPOINT` in `script.js` for the partner and application forms (Supabase could take these too)
 - Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
 - Set `NEXT_EVENT` in `script.js` to a real competition date and name. The T-minus strip currently counts toward a placeholder, which is a promise the club has not actually made.
 - Turn on leaked-password protection: Supabase → Authentication → Policies. It checks new passwords against HaveIBeenPwned and is off by default.
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
 - Populate the alumni grid on `team.html` once the roster and photographs arrive
+- Replace the placeholder names in the `squad.js` ROSTER with the real team, and add photographs, bios and links
 - Replace `assets/research/` crops with photography of the actual subsystems

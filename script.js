@@ -113,6 +113,12 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
   revealEls.forEach(el => io.observe(el));
 
+  // Squad cards are rendered after this script parses, so re-scan when
+  // a page tells us it has injected content.
+  document.addEventListener('aero:content-added', () => {
+    document.querySelectorAll('.reveal:not(.in-view)').forEach(el => io.observe(el));
+  });
+
   /* stagger hero step reveal a touch */
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.hero-content .eyebrow')?.classList.add('in-view');

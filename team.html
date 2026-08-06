@@ -74,52 +74,16 @@
 <!-- ============ PAGE HEADER ============ -->
 <section class="page-header">
   <div class="page-header-inner reveal">
-    <span class="section-tag">Personnel · 10 active</span>
+    <span class="section-tag" id="squadTally">Personnel · 10 active</span>
     <h1 class="section-title">The <span class="grad-text">Squad.</span></h1>
     <p class="section-desc">Three divisions, one flight line — the students who design, build and fly every airframe.</p>
   </div>
 </section>
 
 <section class="section section--top-tight" id="team">
-  <div class="team-block reveal">
-    <div class="team-block-head">
-      <span class="team-block-idx">01</span>
-      <h3>Core Command</h3>
-      <span class="team-count">4 members</span>
-    </div>
-    <div class="team-grid">
-      <div class="team-card team-card--lead"><span class="avatar">YM</span><span class="t-name">Yyug Mohapatro</span><span class="t-role">Tech Lead</span></div>
-      <div class="team-card"><span class="avatar">A</span><span class="t-name">A. Rao</span><span class="t-role">Captain</span></div>
-      <div class="team-card"><span class="avatar">P</span><span class="t-name">P. Nair</span><span class="t-role">Vice Captain</span></div>
-      <div class="team-card"><span class="avatar">K</span><span class="t-name">K. Mehta</span><span class="t-role">Chief Engineer</span></div>
-    </div>
-  </div>
-
-  <div class="team-block reveal">
-    <div class="team-block-head">
-      <span class="team-block-idx">02</span>
-      <h3>Systems Integration</h3>
-      <span class="team-count">3 members</span>
-    </div>
-    <div class="team-grid">
-      <div class="team-card"><span class="avatar">S</span><span class="t-name">S. Verma</span><span class="t-role">Systems Lead</span></div>
-      <div class="team-card"><span class="avatar">A</span><span class="t-name">A. Kumar</span><span class="t-role">Flight Controller</span></div>
-      <div class="team-card"><span class="avatar">R</span><span class="t-name">R. Das</span><span class="t-role">Sensor Systems</span></div>
-    </div>
-  </div>
-
-  <div class="team-block reveal">
-    <div class="team-block-head">
-      <span class="team-block-idx">03</span>
-      <h3>Airframe</h3>
-      <span class="team-count">3 members</span>
-    </div>
-    <div class="team-grid">
-      <div class="team-card"><span class="avatar">M</span><span class="t-name">M. Sharma</span><span class="t-role">Structures Lead</span></div>
-      <div class="team-card"><span class="avatar">F</span><span class="t-name">F. Quereshi</span><span class="t-role">Composites</span></div>
-      <div class="team-card"><span class="avatar">N</span><span class="t-name">N. Iyer</span><span class="t-role">CAD / Manufacturing</span></div>
-    </div>
-  </div>
+  <!-- Cards are built by squad.js from the ROSTER array — edit there,
+       not here, so the headcount and division tallies stay derived. -->
+  <div id="squadMount"></div>
 
   <!-- ============ COMPETITION TEAMS ============ -->
   <div class="section-head reveal" style="margin-top:96px">
@@ -338,6 +302,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
+<script src="squad.js"></script>
 <script src="script.js"></script>
 <script src="network.js"></script>
 </body>
