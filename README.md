@@ -73,6 +73,16 @@ Flying Phantoms currently renders as an initials badge. Add `fleet-flying-phanto
 
 To add more, drop the file in `assets/media/` and copy any `figure.media-tile` block in `gallery.html`, swapping the `src`, `alt`, caption and dimensions. `media-tile--wide` spans two columns — use it for landscape hero shots and team photos. Start a new campaign with an `album-head` block.
 
+## R&D card imagery
+
+`assets/research/` holds one 16:10 crop per research track, cut from the competition photography rather than sourced separately — 900px wide, WebP, 25–58 KB each, 228 KB for all six.
+
+Each is matched to what it actually shows, not decoration: the flight-controller card uses the wiring-loom photo, ESC uses the transmitter, GPS-denied uses the in-flight shot, morphing wingtips uses the wing panel, micro-fins uses the airframe detail.
+
+**These illustrate the discipline, not the specific project.** None documents the research it sits above. Swap in real bench and test photography when you have it — replace the file at the same path and nothing else needs touching.
+
+A gradient sits over each image so full-colour photography does not fight the dark palette, and images desaturate slightly until hover.
+
 ## Supabase
 
 Project **AEROBMSCE-02** (`hbugdntqbzxbgnupihah`, ap-southeast-1). Connection details live in `supabase-client.js`, which every page that needs the database loads before its own script.
@@ -199,3 +209,4 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 - Turn on leaked-password protection: Supabase → Authentication → Policies. It checks new passwords against HaveIBeenPwned and is off by default.
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
 - Populate the alumni grid on `team.html` once the roster and photographs arrive
+- Replace `assets/research/` crops with photography of the actual subsystems
