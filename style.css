@@ -1914,3 +1914,20 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .brand-logo--full{ display:none; }
   .brand-logo--mark{ display:block; height:28px; }
 }
+
+/* ---------- podium rank badge ----------
+   Rank leads each result line, so the achievement is the first thing
+   read rather than being buried after the competition name. */
+.timeline-card li{
+  display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+}
+.rank{
+  flex:0 0 auto;
+  min-width:38px;
+  font-family:var(--font-head); font-weight:700; font-size:15px;
+  letter-spacing:-0.01em;
+  color:var(--cyan);
+  font-variant-numeric:tabular-nums;
+}
+/* podium places carry more weight than a placing deep in the field */
+.timeline-card li:has(.rank:not(:empty)) strong{ font-weight:600; }
