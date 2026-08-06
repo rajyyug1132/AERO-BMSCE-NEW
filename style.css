@@ -2119,3 +2119,12 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   transition:color 0.3s, border-color 0.3s;
 }
 .timeline-card:hover .li-team{ color:var(--silver); border-color:rgba(235,222,198,0.2); }
+
+/* ordinal suffix — raised and smaller, the way a placing is normally set */
+.rank sup{
+  font-size:0.6em;
+  vertical-align:super;
+  line-height:0;
+  margin-left:0.5px;
+  font-weight:600;
+}
