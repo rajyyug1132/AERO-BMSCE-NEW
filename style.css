@@ -2128,3 +2128,98 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   margin-left:0.5px;
   font-weight:600;
 }
+
+/* ===========================================================
+   PRELOADER
+   Shown once per browser session on the public pages.
+
+   Safety: the fade-out is a CSS animation with a hard 4.5s ceiling, so
+   if JavaScript never runs the overlay still clears itself and the site
+   is never trapped behind it. JS simply hides it sooner.
+=========================================================== */
+.preloader{
+  position:fixed; inset:0; z-index:300;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:26px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(154,51,35,0.16), transparent 65%),
+    #060403;
+  animation:preFailsafe 0.4s linear 4.5s forwards;
+}
+.preloader::before{
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(235,222,198,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(235,222,198,0.028) 1px, transparent 1px);
+  background-size:70px 70px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 80%);
+}
+/* runs only if JS never removes the overlay */
+@keyframes preFailsafe{ to{ opacity:0; visibility:hidden; pointer-events:none; } }
+
+.preloader.is-done{
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity 0.6s var(--ease), visibility 0.6s;
+}
+.preloader.is-instant{ display:none; }
+
+/* bracketed frame around the mark */
+.pre-frame{
+  position:relative; padding:26px;
+  display:flex; align-items:center; justify-content:center;
+}
+.pre-frame::before,
+.pre-frame::after{
+  content:''; position:absolute; width:26px; height:26px;
+  border:1px solid var(--cyan); opacity:0.75;
+}
+.pre-frame::before{ top:0; left:0;  border-right:none; border-bottom:none; }
+.pre-frame::after{  bottom:0; right:0; border-left:none;  border-top:none;  }
+
+.pre-mark{
+  width:96px; height:96px; display:block;
+  filter:drop-shadow(0 0 24px rgba(244,196,48,0.35));
+  animation:preBreathe 2.4s ease-in-out infinite;
+}
+@keyframes preBreathe{
+  0%,100%{ transform:scale(1);    opacity:0.9; }
+  50%    { transform:scale(1.045); opacity:1;   }
+}
+
+/* progress */
+.pre-bar{
+  position:relative; width:min(280px, 60vw); height:2px;
+  background:rgba(235,222,198,0.12); border-radius:2px; overflow:hidden;
+}
+.pre-fill{
+  display:block; height:100%; width:0%;
+  background:linear-gradient(90deg, var(--brick-soft), var(--cyan));
+  box-shadow:0 0 10px rgba(244,196,48,0.55);
+  transition:width 0.35s var(--ease);
+}
+/* if JS never reports progress, sweep anyway so it is not a dead bar */
+.preloader.no-js .pre-fill{ animation:preSweep 4s ease-out forwards; }
+@keyframes preSweep{ to{ width:100%; } }
+
+.pre-status{
+  position:relative;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--slate);
+}
+.pre-status b{ color:var(--cyan); font-weight:500; }
+.pre-pct{
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em;
+  color:var(--slate-dim); font-variant-numeric:tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .pre-mark{ animation:none; }
+  .preloader{ animation:preFailsafe 0.01s linear 0.4s forwards; }
+}
+@media (max-width: 600px){
+  .pre-mark{ width:72px; height:72px; }
+}
+/* second and later page views in the same session skip it entirely,
+   set by an inline script in <head> so there is no flash */
+html.pre-seen .preloader{ display:none; }

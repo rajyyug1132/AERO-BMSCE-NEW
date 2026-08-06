@@ -23,8 +23,23 @@
 <link rel="icon" type="image/png" sizes="64x64" href="assets/logos/favicon.png">
 <link rel="apple-touch-icon" href="assets/logos/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<script src="preloader-boot.js"></script>
 </head>
 <body>
+
+<!-- ============ PRELOADER ============
+     First visit of the session only. Clears itself via CSS even if the
+     script never runs, so it can never trap the page. -->
+<div class="preloader no-js" role="status" aria-live="polite" aria-label="Loading">
+  <div class="pre-frame">
+    <img class="pre-mark" src="assets/logos/aerobmsce-mark.webp"
+         alt="" width="96" height="96" fetchpriority="high">
+  </div>
+  <div class="pre-bar"><span class="pre-fill"></span></div>
+  <p class="pre-status">Initializing <b>systems</b></p>
+  <span class="pre-pct">000%</span>
+</div>
+
 <a class="skip-link" href="#top">Skip to content</a>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -202,5 +217,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="preloader.js"></script>
 </body>
 </html>
