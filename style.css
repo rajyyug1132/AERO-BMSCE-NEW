@@ -2256,9 +2256,12 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .pre-mark{ animation:none; }
   .preloader{ animation:preFailsafe 0.01s linear 0.4s forwards; }
 }
-@media (max-width: 600px){
+/* matches the <picture> breakpoint exactly — below 560 the stacked
+   lockup is served, and it is near-square, so it needs its own width */
+@media (max-width: 560px){
   .pre-frame{ padding:24px 26px; }
   .pre-frame::before, .pre-frame::after{ width:18px; height:18px; }
+  .pre-mark{ width:min(200px, 50vw); }
 }
 /* second and later page views in the same session skip it entirely,
    set by an inline script in <head> so there is no flash */

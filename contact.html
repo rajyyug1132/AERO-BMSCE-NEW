@@ -11,11 +11,13 @@
 <meta property="og:title" content="Partner With Us — AeroBMSCE">
 <meta property="og:description" content="Get in touch with AeroBMSCE to fund, mentor, or fly with the squad. Partnerships contact and location.">
 <meta property="og:url" content="https://aero-bmsce-new.vercel.app/contact.html">
-<meta property="og:image" content="https://aero-bmsce-new.vercel.app/assets/media/usa-03-in-flight.webp">
+<meta property="og:image" content="https://aero-bmsce-new.vercel.app/assets/media/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Partner With Us — AeroBMSCE">
 <meta name="twitter:description" content="Get in touch with AeroBMSCE to fund, mentor, or fly with the squad. Partnerships contact and location.">
-<meta name="twitter:image" content="https://aero-bmsce-new.vercel.app/assets/media/usa-03-in-flight.webp">
+<meta name="twitter:image" content="https://aero-bmsce-new.vercel.app/assets/media/og-card.jpg">
 <meta name="theme-color" content="#0A0807">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,8 +36,14 @@
      script never runs, so it can never trap the page. -->
 <div class="preloader no-js" role="status" aria-live="polite" aria-label="Loading">
   <div class="pre-frame">
-    <img class="pre-mark" src="assets/logos/aerobmsce-wordmark.webp"
-         alt="AeroBMSCE" width="900" height="218" fetchpriority="high" decoding="sync">
+    <picture>
+      <!-- the horizontal lockup is 4:1; on a phone that leaves it tiny,
+           so narrow screens get the stacked version instead -->
+      <source media="(max-width: 560px)" srcset="assets/logos/aerobmsce-lockup-stacked.webp"
+              width="508" height="475">
+      <img class="pre-mark" src="assets/logos/aerobmsce-wordmark.webp"
+           alt="AeroBMSCE" width="900" height="218" fetchpriority="high" decoding="sync">
+    </picture>
   </div>
   <div class="pre-bar"><span class="pre-fill"></span></div>
   <p class="pre-status">Initializing <b>systems</b></p>
