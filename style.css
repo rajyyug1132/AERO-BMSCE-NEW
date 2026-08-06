@@ -738,10 +738,13 @@ main, header, footer{ position:relative; z-index:2; }
 }
 
 /* ---------- fleet / competition team cards ---------- */
-.fleet-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+/* All four teams sit on one line. At 1240px that is a 293px column, so
+   the padding and mark height below are tuned for that width rather than
+   the roomier three-up they replace. */
+.fleet-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; }
 .fleet-card{
-  display:flex; flex-direction:column; gap:10px;
-  padding:28px 26px 26px; border-radius:18px;
+  display:flex; flex-direction:column; gap:9px;
+  padding:24px 20px 22px; border-radius:18px;
   border:1px solid var(--border); background:var(--glass);
   backdrop-filter:blur(10px);
   transition:transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
@@ -752,16 +755,16 @@ main, header, footer{ position:relative; z-index:2; }
   box-shadow:0 22px 55px -22px rgba(244,196,48,0.28);
 }
 .fleet-mark{
-  height:110px; margin-bottom:8px;
+  height:88px; margin-bottom:6px;
   display:flex; align-items:center; justify-content:flex-start;
 }
 .fleet-mark img{
-  max-height:100%; max-width:78%; width:auto; object-fit:contain;
+  max-height:100%; max-width:100%; width:auto; object-fit:contain;
   filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));
 }
 .fleet-mark--empty{
   align-items:center; justify-content:center;
-  width:96px; height:96px; border-radius:50%;
+  width:80px; height:80px; border-radius:50%;
   border:1px solid var(--border-hover);
   background:linear-gradient(135deg, rgba(244,196,48,0.2), rgba(154,51,35,0.12));
   margin-bottom:22px;
@@ -769,11 +772,12 @@ main, header, footer{ position:relative; z-index:2; }
 .fleet-mark--empty span{
   font-family:var(--font-display); font-weight:700; font-size:21px; color:var(--cyan);
 }
-.fleet-card h3{ font-family:var(--font-head); font-size:19px; }
-.fleet-card p{ font-size:13.5px; color:var(--slate); font-weight:300; }
+.fleet-card h3{ font-family:var(--font-head); font-size:17.5px; line-height:1.25; }
+.fleet-card p{ font-size:13px; line-height:1.55; color:var(--slate); font-weight:300; }
 .fleet-meta{
-  font-family:var(--font-mono); font-size:11px; color:var(--slate-dim);
-  letter-spacing:0.06em; text-transform:uppercase; margin-top:6px;
+  font-family:var(--font-mono); font-size:10.5px; color:var(--slate-dim);
+  letter-spacing:0.06em; text-transform:uppercase;
+  margin-top:auto; padding-top:10px;
 }
 
 /* ---------- sponsors ---------- */
@@ -1240,13 +1244,14 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .timeline-node{ margin-top:8px; }
   .cta-band{ padding:26px; }
   .process-grid{ grid-template-columns:repeat(2, 1fr); }
-  .fleet-grid{ grid-template-columns:1fr; }
+  .fleet-grid{ grid-template-columns:repeat(2, 1fr); }
   .marquee-item{ padding:0 34px; }
   .brand-logo{ height:28px; }
   .join-form-wrap{ grid-template-columns:1fr; gap:40px; margin-top:64px; }
 }
 
 @media (max-width: 600px){
+  .fleet-grid{ grid-template-columns:1fr; }
   .nav{ padding:14px 18px; }
   .section{ padding:80px 18px; }
   .stats-band{ padding:60px 18px; }
