@@ -2197,26 +2197,31 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 .preloader.is-instant{ display:none; }
 
 /* bracketed frame around the mark */
+/* The frame hugs the lockup rather than sitting on a fixed square — the
+   wordmark is roughly 4:1, so a square bracket would have left the
+   brackets floating in empty space either side of it. */
 .pre-frame{
-  position:relative; padding:26px;
+  position:relative; padding:30px 38px;
   display:flex; align-items:center; justify-content:center;
 }
 .pre-frame::before,
 .pre-frame::after{
-  content:''; position:absolute; width:26px; height:26px;
-  border:1px solid var(--cyan); opacity:0.75;
+  content:''; position:absolute; width:24px; height:24px;
+  border:1px solid var(--cyan); opacity:0.7;
 }
 .pre-frame::before{ top:0; left:0;  border-right:none; border-bottom:none; }
 .pre-frame::after{  bottom:0; right:0; border-left:none;  border-top:none;  }
 
 .pre-mark{
-  width:96px; height:96px; display:block;
-  filter:drop-shadow(0 0 24px rgba(244,196,48,0.35));
-  animation:preBreathe 2.4s ease-in-out infinite;
+  width:min(300px, 64vw); height:auto; display:block;
+  filter:drop-shadow(0 0 26px rgba(244,196,48,0.28));
+  animation:preBreathe 2.6s ease-in-out infinite;
 }
+/* gentler than it was — the lockup is wide, so the same scale factor
+   moved a lot more pixels and read as a pulse rather than a breath */
 @keyframes preBreathe{
-  0%,100%{ transform:scale(1);    opacity:0.9; }
-  50%    { transform:scale(1.045); opacity:1;   }
+  0%,100%{ transform:scale(1);     opacity:0.92; }
+  50%    { transform:scale(1.022); opacity:1;    }
 }
 
 /* progress */
@@ -2252,7 +2257,8 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .preloader{ animation:preFailsafe 0.01s linear 0.4s forwards; }
 }
 @media (max-width: 600px){
-  .pre-mark{ width:72px; height:72px; }
+  .pre-frame{ padding:24px 26px; }
+  .pre-frame::before, .pre-frame::after{ width:18px; height:18px; }
 }
 /* second and later page views in the same session skip it entirely,
    set by an inline script in <head> so there is no flash */
