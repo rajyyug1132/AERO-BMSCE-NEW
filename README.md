@@ -194,8 +194,8 @@ Type is Space Grotesk for headings, Inter for body, JetBrains Mono for telemetry
 
 - Replace the placeholder squad names in `team.html` with the real roster and photographs
 - Set `FORM_ENDPOINT` in `script.js` for the partner and application forms (Supabase could take these too)
-- Confirm the T-minus target date in `script.js` against the real 2026 competition calendar
 - Settle the 2010 vs 2012 founding year (see above) and align the site and the deck
+- Set `NEXT_EVENT` in `script.js` to a real competition date and name. The T-minus strip currently counts toward a placeholder, which is a promise the club has not actually made.
 - Turn on leaked-password protection: Supabase → Authentication → Policies. It checks new passwords against HaveIBeenPwned and is off by default.
 - Consider adding the DRDO collaboration to `research.html` once it can be described publicly
 - Populate the alumni grid on `team.html` once the roster and photographs arrive
