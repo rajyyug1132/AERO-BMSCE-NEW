@@ -94,6 +94,12 @@
       return;
     }
 
+    if (data.link?.trim() && !/^https?:\/\//i.test(data.link.trim())){
+      setStatus('The LinkedIn link needs to start with http:// or https://', 'error');
+      document.getElementById('netLink').focus();
+      return;
+    }
+
     const originalLabel = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';

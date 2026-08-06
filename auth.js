@@ -16,7 +16,7 @@
   const form      = document.getElementById('loginForm');
   const emailEl   = document.getElementById('authEmail');
   const passEl    = document.getElementById('authPassword');
-  const rememberEl= document.getElementById('authRemember');
+  const rememberEl= document.getElementById('authRemember');   // honoured after sign-in
   const submitBtn = document.getElementById('authSubmit');
   const statusEl  = document.getElementById('authStatus');
   const revealBtn = document.getElementById('authReveal');
@@ -91,6 +91,20 @@
 
     try {
       await signIn(creds.email, creds.pass);
+
+      // Unchecked means "do not persist" — drop the stored session so it
+      // dies with the tab. Previously this checkbox was decorative.
+      if (rememberEl && !rememberEl.checked){
+        try {
+          Object.keys(localStorage)
+            .filter(k => k.startsWith('sb-') && k.includes('auth-token'))
+            .forEach(k => {
+              sessionStorage.setItem(k, localStorage.getItem(k));
+              localStorage.removeItem(k);
+            });
+        } catch { /* storage unavailable — session simply persists */ }
+      }
+
       setStatus('Authenticated. Opening your dashboard…', 'ok');
       window.location.href = REDIRECT_AFTER_LOGIN;
     } catch (err) {

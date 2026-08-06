@@ -25,6 +25,17 @@
   /* ---------- helpers ---------- */
   const $ = (id) => document.getElementById(id);
 
+  // Only http(s) survives. Anything else (javascript:, data:, vbscript:)
+  // becomes null and the link is simply not rendered. The database now
+  // enforces this too; this is the second layer.
+  function safeUrl(u){
+    if (!u) return null;
+    try {
+      const parsed = new URL(u, window.location.origin);
+      return (parsed.protocol === 'http:' || parsed.protocol === 'https:') ? parsed.href : null;
+    } catch { return null; }
+  }
+
   function esc(s){
     return String(s ?? '').replace(/[&<>"']/g, c => (
       { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
@@ -165,7 +176,7 @@
           </div>
           <h3 class="upd-title">${esc(r.title)}</h3>
           ${r.detail ? `<p class="upd-detail">${esc(r.detail)}</p>` : ''}
-          ${r.proof_url ? `<a class="upd-proof" href="${esc(r.proof_url)}" target="_blank" rel="noopener noreferrer">View proof ↗</a>` : ''}
+          ${safeUrl(r.proof_url) ? `<a class="upd-proof" href="${esc(safeUrl(r.proof_url))}" target="_blank" rel="noopener noreferrer">View proof ↗</a>` : ''}
           ${(isOpenBlocker && (mine || me.role === 'admin'))
             ? `<button type="button" class="upd-action" data-resolve="${esc(r.id)}">Mark resolved</button>` : ''}
           ${(mine || me.role === 'admin')
@@ -281,7 +292,7 @@
           <span class="queue-name">${esc(a.full_name)}</span>
           <span class="queue-detail">${esc([a.role_title, a.organisation].filter(Boolean).join(' · ') || '—')}</span>
           <span class="queue-meta mono">${esc(a.email)}${a.grad_year ? ' · ' + esc(a.grad_year) : ''}${a.team ? ' · ' + esc(a.team) : ''}</span>
-          ${a.linkedin ? `<a class="queue-link" href="${esc(a.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>` : ''}
+          ${safeUrl(a.linkedin) ? `<a class="queue-link" href="${esc(safeUrl(a.linkedin))}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>` : ''}
         </div>
         <div class="queue-actions">
           <button type="button" class="btn btn-primary" data-approve="${esc(a.id)}">Approve</button>
