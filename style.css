@@ -1614,34 +1614,6 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 }
 .outcome p{ font-size:14px; line-height:1.6; color:var(--silver); font-weight:300; }
 
-/* prospectus download */
-.prospectus-download{
-  display:flex; align-items:center; gap:22px; flex-wrap:wrap;
-  margin-top:60px; padding:26px 30px; border-radius:18px;
-  border:1px solid var(--border);
-  background:linear-gradient(120deg, rgba(244,196,48,0.08), rgba(154,51,35,0.06) 55%, rgba(235,222,198,0.02));
-  transition:border-color 0.35s, transform 0.35s var(--ease), box-shadow 0.35s;
-}
-.prospectus-download:hover{
-  border-color:var(--border-hover); transform:translateY(-3px);
-  box-shadow:0 24px 55px -26px rgba(244,196,48,0.35);
-}
-.pd-icon{
-  flex:0 0 auto; width:48px; height:48px; border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--cyan-dim); color:var(--cyan);
-}
-.pd-icon svg{ width:24px; height:24px; }
-.pd-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:5px; }
-.pd-title{ font-family:var(--font-head); font-weight:600; font-size:17px; color:var(--white); }
-.pd-meta{ font-size:13px; color:var(--slate); font-weight:300; }
-.pd-action{
-  flex:0 0 auto; display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; font-weight:600; letter-spacing:0.02em;
-  padding:12px 22px; border-radius:999px;
-  background:linear-gradient(120deg, var(--cyan), var(--cyan-soft)); color:#1C1512;
-}
-.prospectus-download:hover .btn-arrow{ transform:translateY(2px); }
 
 @media (max-width: 980px){
   .cred-strip{ grid-template-columns:repeat(3, 1fr); }
@@ -1652,8 +1624,6 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 @media (max-width: 600px){
   .cred-strip{ grid-template-columns:repeat(2, 1fr); }
   .outcome-grid{ grid-template-columns:1fr; }
-  .prospectus-download{ padding:22px; }
-  .pd-action{ width:100%; justify-content:center; }
 }
 
 /* ===========================================================
