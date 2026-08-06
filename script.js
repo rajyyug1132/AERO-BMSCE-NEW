@@ -33,12 +33,38 @@
     }));
   }
 
+  /* The field is decorative, so it runs on a 30fps clock rather than the
+     display's. On a 120Hz panel that is a quarter of the canvas repaints
+     for motion nobody can tell apart.
+
+     Everything below moves per SECOND, not per tick. The old code did
+     `s.y += s.speed` once per frame, which meant the stars fell twice as
+     fast on a 120Hz Mac as on a 60Hz monitor and crawled on anything
+     struggling. Speed should not be a function of the hardware. */
+  const STAR_FPS = 30;
+  const STAR_STEP = 1000 / STAR_FPS;
+
   let t = 0;
-  function drawStars(){
+  let lastStar = 0;
+  let starsAwake = true;
+
+  function drawStars(now){
+    requestAnimationFrame(drawStars);
+    if (!starsAwake) { lastStar = now; return; }
+
+    const elapsed = now - lastStar;
+    if (elapsed < STAR_STEP) return;
+    // keep the phase rather than resetting, so we do not drift slow
+    lastStar = now - (elapsed % STAR_STEP);
+
+    // a backgrounded tab can hand back a huge dt; clamp so the field does
+    // not teleport on return
+    const dt = Math.min(elapsed, 250) / 1000;
+
     ctx.clearRect(0, 0, w, h);
-    t += 0.01;
+    t += 0.6 * dt;
     for (const s of stars){
-      s.y += s.speed;
+      s.y += s.speed * 60 * dt;
       if (s.y > h) s.y = 0;
       const twinkle = reduceMotion ? 1 : (Math.sin(t + s.twinkleOffset) * 0.3 + 0.7);
       ctx.beginPath();
@@ -48,12 +74,21 @@
         : `rgba(244, 210, 140, ${s.baseAlpha * twinkle})`;
       ctx.fill();
     }
-    requestAnimationFrame(drawStars);
+  }
+
+  // no reason to paint a starfield nobody is looking at
+  document.addEventListener('visibilitychange', () => {
+    starsAwake = !document.hidden;
+  });
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(([e]) => {
+      starsAwake = e.isIntersecting && !document.hidden;
+    }, { threshold: 0 }).observe(canvas);
   }
 
   window.addEventListener('resize', resize);
   resize();
-  drawStars();
+  requestAnimationFrame(drawStars);
 
   /* ---------- Nav scroll state ---------- */
   const nav = document.getElementById('nav');
@@ -205,19 +240,34 @@
     let rotationSpeed = BASE_SPEED;
     let lastTime = performance.now();
 
+    /* A 60-frame turntable only ever shows 60 distinct images, so there is
+       nothing to gain from running faster than 30 swaps a second — and the
+       old loop reassigned .src on EVERY tick whether the frame had changed
+       or not. On a 120Hz panel that was 120 assignments a second for a
+       frame that changes about six times. */
+    const PLANE_STEP = 1000 / 30;
+    let lastSwap = 0;
+    let paintedFrame = -1;
+
     function tick(now){
-      const dt = now - lastTime;
+      requestAnimationFrame(tick);
+      if (reduceMotion) return;
+      if (now - lastSwap < PLANE_STEP) return;
+      lastSwap = now;
+
+      const dt = Math.min(now - lastTime, 250);
       lastTime = now;
-      if (!reduceMotion){
-        frameAccumulator += rotationSpeed * (dt / 16.7);
-        while (Math.abs(frameAccumulator) >= 1){
-          const step = frameAccumulator > 0 ? 1 : -1;
-          currentFrame = (currentFrame + step + FRAME_COUNT) % FRAME_COUNT;
-          frameAccumulator -= step;
-        }
+
+      frameAccumulator += rotationSpeed * (dt / 16.7);
+      while (Math.abs(frameAccumulator) >= 1){
+        const step = frameAccumulator > 0 ? 1 : -1;
+        currentFrame = (currentFrame + step + FRAME_COUNT) % FRAME_COUNT;
+        frameAccumulator -= step;
+      }
+      if (currentFrame !== paintedFrame){
+        paintedFrame = currentFrame;
         planeFrameEl.src = framePaths[currentFrame];
       }
-      requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
@@ -342,7 +392,10 @@
     let dragStartFrame = 0;
     let glideTarget = null;
 
+    let renderedFrame = -1;
     function render(){
+      if (frame === renderedFrame) return;   // setFrame rounds, so most
+      renderedFrame = frame;                 // calls land on the same image
       frameEl.src = framePaths[frame];
       range.value = frame;
       degOut.textContent = Math.round(frame * (360 / FRAME_COUNT));
@@ -366,9 +419,16 @@
       playBtn.setAttribute('aria-pressed', String(autoplay));
     }
 
+    const VIEW_STEP = 1000 / 30;
     let last = performance.now();
+    let lastStep = 0;
+
     function loop(now){
-      const dt = now - last;
+      requestAnimationFrame(loop);
+      if (now - lastStep < VIEW_STEP) return;
+      lastStep = now;
+
+      const dt = Math.min(now - last, 250);
       last = now;
 
       if (glideTarget !== null){
@@ -379,12 +439,16 @@
           setFrame(glideTarget);
           glideTarget = null;
         } else {
-          setFrame(frame + diff * 0.16);
+          /* Exponential smoothing rather than a flat 0.16 per tick. The old
+             lerp glided twice as fast on a 120Hz display as on a 60Hz one,
+             because it assumed every tick was the same length. This converges
+             over the same wall-clock time on any refresh rate. */
+          const k = 1 - Math.pow(1 - 0.16, dt / 16.7);
+          setFrame(frame + diff * k);
         }
       } else if (autoplay && !dragging){
         setFrame(frame + (dt / 16.7) * 0.12);
       }
-      requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
 

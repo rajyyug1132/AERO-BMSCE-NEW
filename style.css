@@ -736,7 +736,9 @@ main, header, footer{ position:relative; z-index:2; }
   padding:24px 20px 22px; border-radius:18px;
   border:1px solid var(--border); background:var(--glass);
   backdrop-filter:blur(10px);
-  transition:transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
+  transition:transform 0.34s var(--ease),
+             border-color 0.34s var(--ease),
+             box-shadow 0.34s var(--ease);
 }
 .fleet-card:hover{
   transform:translateY(-5px);
@@ -794,6 +796,11 @@ main, header, footer{ position:relative; z-index:2; }
 .marquee-track{
   display:flex; width:max-content;
   animation:marqueeRight 42s linear infinite;
+  /* promote to its own layer — a transform animation on the compositor
+     never blocks on the main thread, so the strip keeps moving smoothly
+     while scroll handlers and the reveal observer are doing work */
+  will-change:transform;
+  backface-visibility:hidden;
 }
 .marquee:hover .marquee-track{ animation-play-state:paused; }
 .marquee-set{ display:flex; align-items:center; flex:0 0 auto; }

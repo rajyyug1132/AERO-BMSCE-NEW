@@ -32,6 +32,15 @@
   const PHASES = ['systems', 'airframe', 'telemetry', 'go'];
   let shown = 0;
 
+  /* On a warm cache window.load fires in about 150ms, the bar snapped
+     straight to 100 and the whole curtain was gone inside a blink — which
+     is why it looked like it never ran. A splash the visitor cannot see is
+     just a delay. Hold it for a floor of 1.5s measured from first paint,
+     and let the bar actually travel that distance. */
+  const MIN_VISIBLE = 1500;
+  const startedAt = performance.now();
+  const elapsed = () => performance.now() - startedAt;
+
   /* ---------- honest progress ----------
      Weighted: the DOM being parsed is most of the perceived wait, the
      images that follow are the rest. We never invent a number that is
@@ -40,8 +49,16 @@
   let current = 0;
 
   function paint(){
-    current += (target - current) * 0.18;
-    if (target >= 100 && target - current < 0.5) current = 100;
+    /* The bar shows whichever is LOWER: what has actually loaded, or what
+       the clock has earned. Real progress can never be overstated, and a
+       fully cached page still gets a bar that travels rather than one that
+       is already full before it is visible. */
+    const floorPace = (elapsed() / MIN_VISIBLE) * 100;
+    let aim = Math.min(target, floorPace);
+    if (target >= 100 && elapsed() >= MIN_VISIBLE) aim = 100;
+
+    current += (aim - current) * 0.16;
+    if (aim >= 100 && aim - current < 0.5) current = 100;
     const v = Math.round(current);
     if (fill) fill.style.width = v + '%';
     if (pct)  pct.textContent  = String(v).padStart(3, '0') + '%';
@@ -51,7 +68,9 @@
       shown = phase;
       status.textContent = PHASES[phase];
     }
-    if (v < 100) requestAnimationFrame(paint);
+    // keep ticking until the curtain is actually gone; stopping at 100
+    // left the loop dead if target arrived before the floor did
+    if (!cleared) requestAnimationFrame(paint);
   }
   requestAnimationFrame(paint);
 
@@ -81,19 +100,26 @@
     });
   }
 
+  let cleared = false;
+
   function finish(){
+    if (cleared) return;          // load and the ceiling both call this
+    cleared = true;
     target = 100;
     try { sessionStorage.setItem('aeroPreloaded', '1'); } catch(e){}
-    // let the bar visibly reach 100 before the curtain lifts
+
+    // serve the remainder of the floor, then let the bar land on 100
+    // before the curtain lifts
+    const wait = Math.max(0, MIN_VISIBLE - elapsed()) + 380;
     setTimeout(() => {
       el.classList.add('is-done');
       document.body.classList.add('pre-cleared');
       setTimeout(() => el.remove(), 700);
-    }, 420);
+    }, wait);
   }
 
   window.addEventListener('load', finish);
   // hard ceiling — a single stalled asset must not hold the page
-  setTimeout(finish, 3200);
+  setTimeout(finish, 3600);
 
 })();
