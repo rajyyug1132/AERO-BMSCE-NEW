@@ -437,24 +437,6 @@ main, header, footer{ position:relative; z-index:2; }
 .marquee--hero .marquee-item img{ max-height:34px; max-width:118px; opacity:0.5; }
 .marquee--hero .marquee-item:hover img{ opacity:0.92; }
 
-.scroll-cue{
-  position:absolute; bottom:28px; left:50%; translate:-50% 0;
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em;
-  color:var(--slate-dim);
-}
-.scroll-line{ width:1px; height:36px; background:var(--border); position:relative; overflow:hidden; }
-.scroll-dot{
-  position:absolute; top:0; left:-1.5px; width:4px; height:4px; border-radius:50%;
-  background:var(--cyan); box-shadow:0 0 6px var(--cyan);
-  animation:scrollDown 2s ease-in-out infinite;
-}
-@keyframes scrollDown{
-  0%{ transform:translateY(0); opacity:0; }
-  20%{ opacity:1; }
-  100%{ transform:translateY(36px); opacity:0; }
-}
-
 /* ===================== STATS / COUNTDOWN ===================== */
 .stats-band{
   max-width:var(--max); margin:0 auto; padding:80px 24px;
