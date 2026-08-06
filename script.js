@@ -183,13 +183,10 @@
   counters.forEach(c => counterIO.observe(c));
 
   /* ---------- Countdown to next flight line ----------
-     PLACEHOLDER DATE. No 2026 competition date has been confirmed, so
-     this counts toward a stand-in. Set NEXT_EVENT to the real date and
-     name as soon as the calendar lands, or the strip will keep making
-     a promise the club has not made.
-     Candidates from the prospectus: NACDEC 2026, ISRO IROC,
-     NITK Drone Racing 2026. */
-  const NEXT_EVENT = { date: '2026-09-20T09:00:00+05:30', name: '' };
+     Confirmed date. `name` is still blank, so the strip reads its default
+     label; fill it in and the heading becomes "T-MINUS · <NAME>".
+     Time is 09:00 IST — change it if the call time is different. */
+  const NEXT_EVENT = { date: '2026-10-23T09:00:00+05:30', name: '' };
   const target = new Date(NEXT_EVENT.date).getTime();
 
   const cdLabel = document.querySelector('.countdown-label');
