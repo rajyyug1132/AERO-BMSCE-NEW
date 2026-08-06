@@ -413,22 +413,29 @@ main, header, footer{ position:relative; z-index:2; }
 
 .hero-ctas{ display:flex; gap:16px; justify-content:flex-start; flex-wrap:wrap; }
 
-.hero-steps{
-  display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
-  max-width:var(--max); width:100%; margin-top:80px;
-  background:var(--border); border:1px solid var(--border); border-radius:16px;
-  overflow:hidden;
+/* ---------- hero sponsor strip ----------
+   Replaces the old three-step design/build/fly panel. Deliberately
+   quieter than the sponsor band further down: no card, smaller logos,
+   slower scroll — it is a signal above the fold, not the credits. */
+.hero-marquee{
+  max-width:var(--max); width:100%; margin-top:64px;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
 }
-.step{
-  background:var(--bg-1); padding:22px 26px;
-  display:flex; flex-direction:column; gap:8px;
-  transition:background 0.3s;
+.hero-marquee-label{
+  font-family:var(--font-display); font-weight:500;
+  font-size:10px; letter-spacing:0.26em; text-transform:uppercase;
+  color:var(--slate-dim);
 }
-.step:hover{ background:var(--bg-2); }
-.step-idx{
-  font-family:var(--font-mono); font-size:11px; color:var(--cyan); letter-spacing:0.08em;
+.marquee--hero{
+  /* wider fade than the main band so the logos dissolve into the hero
+     rather than stopping at a hard edge */
+  mask-image:linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+  -webkit-mask-image:linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
 }
-.step-copy{ font-size:14px; color:var(--silver); }
+.marquee--hero .marquee-track{ animation-duration:58s; }
+.marquee--hero .marquee-item{ padding:0 32px; height:60px; }
+.marquee--hero .marquee-item img{ max-height:34px; max-width:118px; opacity:0.5; }
+.marquee--hero .marquee-item:hover img{ opacity:0.92; }
 
 .scroll-cue{
   position:absolute; bottom:28px; left:50%; translate:-50% 0;
@@ -1222,7 +1229,6 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .nav-links{ display:none; }
   .nav-toggle{ display:flex; }
   .hide-mobile{ display:none; }
-  .hero-steps{ grid-template-columns:1fr; }
   .hero-split{ grid-template-columns:1fr; gap:20px; text-align:center; }
   .hero-content{ text-align:center; }
   .hero-content .hero-sub{ margin-left:auto; margin-right:auto; }
@@ -1246,6 +1252,8 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
   .process-grid{ grid-template-columns:repeat(2, 1fr); }
   .fleet-grid{ grid-template-columns:repeat(2, 1fr); }
   .marquee-item{ padding:0 34px; }
+  .marquee--hero .marquee-item{ padding:0 22px; height:52px; }
+  .hero-marquee{ margin-top:44px; }
   .brand-logo{ height:28px; }
   .join-form-wrap{ grid-template-columns:1fr; gap:40px; margin-top:64px; }
 }
@@ -1279,6 +1287,8 @@ button[type="submit"]:disabled{ opacity:0.6; cursor:progress; }
 }
 
 @media (prefers-reduced-motion: reduce){
+  /* the marquee is decorative; frozen it still reads as a logo row */
+  .marquee-track{ animation:none !important; }
   *{ animation:none !important; transition:none !important; }
 }
 
